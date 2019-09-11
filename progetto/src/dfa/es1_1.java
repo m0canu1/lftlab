@@ -1,6 +1,8 @@
-package dfa;/*
- * @author Alexandru Mocanu
- */
+/*
+* @author Alexandru Mocanu
+* TODO correct
+*/
+package dfa;
 
 import java.util.Scanner;
 
@@ -46,9 +48,9 @@ public class es1_1 {
                     break;
             }
         }
-        if (choice == 1)
+        if (choice == 1) //3 zeri consecutivi
             return state == 3; //boolean value
-        else
+        else    //3 zeri non consecutivi
             return state != 3;
     }
 
@@ -60,8 +62,10 @@ public class es1_1 {
         System.out.print("1 - Tre zeri CONSECUTIVI. \n");
         System.out.print("2 - Tre zeri NON CONSECUTIVI. \n\n");
 
+
         return keyboard.nextInt();
     }
+
     public static void main(String[] args)
     {
         int choice = menu();

@@ -1,8 +1,9 @@
-package dfa;/*
- * @author Alexandru Mocanu
- */
+/*
+* @author Alexandru Mocanu
+*/
+package dfa;
 
-
+// TODO corretto
 public class es1_4 {
 
     /* PARI */
@@ -93,7 +94,21 @@ public class es1_4 {
     }
 
     public static void main(String[] args) {
-        System.out.println(scan(args[0]) ? "OK" : "NOPE");
+        // System.out.println(scan(args[0]) ? "OK" : "NOPE");
+
+        String[] test = { 
+                "654321 Rossi", // OK
+                " 123456 Bianchi ", // OK
+                "1234 56Bianchi", // NOPE
+                "123456De Gasperi" //OK
+        };
+
+        for (String s : test) {
+            System.out.print(s + " -> ");
+            System.out.println(scan(s) ? "OK" : "NOPE");
+        }
+
+
     }
 }
 

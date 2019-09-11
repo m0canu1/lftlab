@@ -1,6 +1,7 @@
-package dfa;/*
- * @author Alexandru Mocanu
- */
+/*
+* @author Alexandru Mocanu
+*/
+package dfa;
 
 public class es1_8 {
     public static boolean scan(String s) {
@@ -62,7 +63,8 @@ public class es1_8 {
     }
 
     public static void main(String[] args){
-        String[] test = {"aaa/****/aa",
+        String[] test = {
+                "aaa/****/aa",
                 "aa/*a*a*/",
                 "aaaa",
                 "/****/",

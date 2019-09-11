@@ -1,8 +1,9 @@
-package dfa;/*
- * @author Alexandru Mocanu
- */
+/*
+* @author Alexandru Mocanu
+*/
+package dfa;
 
-public class es1_7 {
+public class es1_10 {
     public static boolean scan(String s) {
         int state = 0;
         int i = 0;

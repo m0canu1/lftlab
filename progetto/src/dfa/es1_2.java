@@ -1,6 +1,7 @@
-package dfa;/*
- * @author Alexandru Mocanu
- */
+/*
+* @author Alexandru Mocanu
+*/
+package dfa;
 
 import static java.lang.Character.isDigit;
 import static java.lang.Character.isLetter;
@@ -12,10 +13,10 @@ import static java.lang.Character.isLetter;
  * che non puo' essere composto solo dal simbolo _.
  */
 
-
+// TODO: CORRETTO
 public class es1_2 {
     public static boolean scan(String s) {
-        int state = 0;
+        int state = 0; //stato iniziale
         int i = 0;
         while (state >= 0 && i < s.length()) {
             final char ch = s.charAt(i++);
@@ -44,10 +45,25 @@ public class es1_2 {
                     break;
             }
         }
-        return state == 2;
+        return state == 2; //stato accettato
     }
 
     public static void main(String[] args) {
-        System.out.println(scan(args[0]) ? "OK" : "NOPE");
+        //System.out.println(scan(args[0]) ? "OK" : "NOPE"); //decommentare per inserimento manuale
+
+        String[] test = {
+            "0A", //NOPE
+            "_A1", //OK
+            "___", //NOPE
+            "A_", //OK
+            "A1", //OK
+            "_", //NOPE
+            "A0" //OK
+        };
+
+        for (String s : test) {
+            System.out.print(s + " -> ");
+            System.out.println(scan(s) ? "OK" : "NOPE");
+        }
     }
 }

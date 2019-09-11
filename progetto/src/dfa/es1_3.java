@@ -1,6 +1,7 @@
-package dfa;/*
- * @author Alexandru Mocanu
- */
+/*
+* @author Alexandru Mocanu
+*/
+package dfa;
 
 /**
  * Progettare e implementare un DFA che riconosca il linguaggio di stringhe che
@@ -19,6 +20,7 @@ package dfa;/*
  * Assicurarsi che il DFA sia minimo.
  */
 
+//TODO corretto, veriricare che sia minimo
 
 public class es1_3 {
 
@@ -94,6 +96,22 @@ public class es1_3 {
     }
 
     public static void main(String[] args) {
-        System.out.println(scan(args[0]) ? "OK" : "NOPE");
+        // System.out.println(scan(args[0]) ? "OK" : "NOPE");
+
+        String[] test = { 
+                "123456Bianchi", // OK
+                "654321Rossi", // OK
+                "654321Bianchi", // NOPE
+                "123456Rossi", // NOPE
+                "654321", // NOPE
+                "Rossi", // NOPE
+                "2Bianchi", // OK
+                "122B" // OK
+        };
+
+        for (String s : test) {
+            System.out.print(s + " -> ");
+            System.out.println(scan(s) ? "OK" : "NOPE");
+        }
     }
 }
