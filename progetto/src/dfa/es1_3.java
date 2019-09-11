@@ -20,7 +20,7 @@ package dfa;/*
  */
 
 
-public class Es1_3 {
+public class es1_3 {
 
     /* PARI */
     private static boolean even(char ch) {

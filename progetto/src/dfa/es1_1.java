@@ -4,7 +4,7 @@ package dfa;/*
 
 import java.util.Scanner;
 
-public class Es1_1 {
+public class es1_1 {
     public static boolean scan(String s, int choice)
     {
         int state = 0;

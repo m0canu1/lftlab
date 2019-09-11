@@ -13,7 +13,7 @@ import static java.lang.Character.isLetter;
  */
 
 
-public class Es1_2 {
+public class es1_2 {
     public static boolean scan(String s) {
         int state = 0;
         int i = 0;
