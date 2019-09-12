@@ -3,10 +3,9 @@
 */
 package dfa;
 
-
 //TODO corretto
 
-public class es1_10 {
+public class es1_11 {
     public static boolean scan(String s) {
         int state = 0;
         int i = 0;
@@ -16,16 +15,20 @@ public class es1_10 {
                 case 0:
                     if(ch == '/')
                         state = 1;
+                    else if (ch == '*' || ch == 'a')
+                        state = 5;
                     else
                         state = -1;
                     break;
                 case 1:
                     if(ch == '*')
                         state = 2;
+                    else if (ch == '/' || ch == 'a')
+                        state = 5;
                     else
                         state = -1;
                     break;
-                case 2: /* stato q2 */
+                case 2:
                     if (ch == 'a' || ch == '/')
                         state = 2;
                     else if(ch == '*')
@@ -33,7 +36,7 @@ public class es1_10 {
                     else
                         state = -1;
                     break;
-                case 3: /* stato q3 */
+                case 3:
                     if (ch == '*')
                         state = 3;
                     else if (ch == 'a')
@@ -46,21 +49,35 @@ public class es1_10 {
                 case 4: /* stato q4 */
                     if (ch == '/')
                         state = 2;
+                    else if (ch == '*' || ch == 'a')
+                        state = 5;
                     break;
+                case 5:
+                    if (ch == '/')
+                        state = 1;
+                    else if (ch == 'a' || ch == '*')
+                        state = 5;
+                    else
+                        state = -1;
             }
         }
-        return state == 4;
+        return state == 4 || state == 5;
     }
 
     public static void main(String[] args){
-        String[] test = {"/****/",
-                "/*a*a*/",
-                "/*a/**/",
-                "/**a///a/a**/",
-                "/**/",
-                "/*/*/",
-                "/*/", //nope
-                "/**/***/"};  //nope
+        String[] test = {
+                "aaa/****/aa",
+                "aa/*a*a*/",
+                "aaaa",
+                "/****/",
+                "/*aa*/",
+                "*/a",
+                "a/**/***a",
+                "a/**/***/a",
+                "a/**/aa/***/a",
+                "aaa/*/aa", //NOPE
+                "a/**//***a", //NOPE
+                "aa/*aa"};  //NOPE
 
         for (String s : test) {
             System.out.print(s + " -> ");

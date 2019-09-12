@@ -3,78 +3,73 @@
 */
 package dfa;
 
+// TODO corretto
 public class es1_8 {
     public static boolean scan(String s) {
-        int state = 0;
+        int state = 0; // stato iniziale q0
         int i = 0;
         while (state >= 0 && i < s.length()) {
             final char ch = s.charAt(i++);
             switch (state) {
-                case 0:
-                    if(ch == '/')
-                        state = 1;
-                    else if (ch == '*' || ch == 'a')
-                        state = 5;
-                    else
-                        state = -1;
-                    break;
-                case 1:
-                    if(ch == '*')
-                        state = 2;
-                    else if (ch == '/' || ch == 'a')
-                        state = 5;
-                    else
-                        state = -1;
-                    break;
-                case 2:
-                    if (ch == 'a' || ch == '/')
-                        state = 2;
-                    else if(ch == '*')
-                        state = 3;
-                    else
-                        state = -1;
-                    break;
-                case 3:
-                    if (ch == '*')
-                        state = 3;
-                    else if (ch == 'a')
-                        state = 2;
-                    else if (ch == '/')
-                        state = 4;
-                    else
-                        state = -1;
-                    break;
-                case 4: /* stato q4 */
-                    if (ch == '/')
-                        state = 2;
-                    else if (ch == '*' || ch == 'a')
-                        state = 5;
-                    break;
-                case 5:
-                    if (ch == '/')
-                        state = 1;
-                    else if (ch == 'a' || ch == '*')
-                        state = 5;
-                    else
-                        state = -1;
+            case 0: 
+                if (ch == 'a')
+                    state = 1;
+                else if (ch == 'b')
+                    state = 0; 
+                else
+                    state = -1;
+                break;
+            case 1: 
+                if (ch == 'a')
+                    state = 1; 
+                else if (ch == 'b')
+                    state = 3; 
+                else
+                    state = -1;
+                break;
+            case 2:
+                if (ch == 'a')
+                    state = 1;
+                else if (ch == 'b')
+                    state = 0;
+                else
+                    state = -1;
+                break;
+            case 3:
+                if (ch == 'a')
+                    state = 1;
+                else if (ch == 'b')
+                    state = 2;
+                else
+                    state = -1;
             }
         }
-        return state == 4 || state == 5;
+        return state > 0;
     }
 
-    public static void main(String[] args){
-        String[] test = {
-                "aaa/****/aa",
-                "aa/*a*a*/",
-                "aaaa",
-                "/****/",
-                "/*aa*/",
-                "*/a",
-                "a/**/***a",
-                "a/**/***/a",
-                "a/**/aa/***/a",
-                "aaa/*/aa", //nope
-                "aa/*aa"};  //nope
+    public static void main(String[] args) {
+        // System.out.println(scan(args[0]) ? "OK" : "NOPE");
+
+        String[] test = { 
+            "abb", //OK
+            "bbaba", //OK
+            "baaaaaaa", //OK
+            "aaaaaaaa", //OK
+            "a", //OK
+            "ba", //OK
+            "bba", //OK
+            "abb", //OK
+            "aa", //OK
+            "bbbababab", //OK
+            "abbbbbb", //NOPE
+            "aaabbbbb", //NOPE
+            "bbabbbbb", //NOPE
+            "bbbaaaaa", //OK
+            "ababbbbb", //OK
+            "caabbbb", // NOPE
+            "abbbbca", //NOPE
+            "b" //NOPE
+        };
 
         for (String s : test) {
             System.out.print(s + " -> ");
