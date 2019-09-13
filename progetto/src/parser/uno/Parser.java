@@ -63,8 +63,8 @@ public class Parser {
     }
 
     /**
-     * E ::= + T E' 
-     * E   | - T E'
+     * E' ::= + T E' 
+     * E'   | - T E'
      *         | ε
      */
     private void exprp() {
