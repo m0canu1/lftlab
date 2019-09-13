@@ -62,8 +62,9 @@ public class es1_1 {
         System.out.print("1 - Tre zeri CONSECUTIVI. \n");
         System.out.print("2 - Tre zeri NON CONSECUTIVI. \n\n");
 
-
-        return keyboard.nextInt();
+        int ret = keyboard.nextInt();
+        keyboard.close();
+        return ret;
     }
 
     public static void main(String[] args)
