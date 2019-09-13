@@ -44,10 +44,9 @@ public class Parser {
      * Partenza.
      * Gli unici caratteri accettati in partenza sono "(" o un Numero
      */
-    public void start() throws NotAllowedSymbol, NullPointerException {
+    public void start() throws NullPointerException {
         if (look.tag == '(' || look.tag == Tag.NUM) 
             expr();
-        else throw new NotAllowedSymbol();
         match(Tag.EOF);
     }
 
@@ -91,10 +90,8 @@ public class Parser {
      * può iniziare con ( o un numero
      */
     private void term() {
-        // if (look.tag == '(' || look.tag == Tag.NUM) {
             fact();
             termp();
-        // } else error("Syntax error");
     }
 
     /**
@@ -150,29 +147,20 @@ public class Parser {
     }
     public static void main(String[] args) {
         Lexer lex = new Lexer();
-        String path = "progetto/parser.txt"; // il percorso del file da leggere
+        String path = "progetto/parser.txt";
         try {
             BufferedReader br = new BufferedReader(new FileReader(path));
             Parser parser = new Parser(lex, br);
             parser.start();
-            System.out.println("Input OK");
+            System.out.println("\nInput OK\n");
             br.close();
         } catch (IOException e) {
-            System.out.println("Errore nel file. Nessun file con questo nome.");
+            System.out.println("Errore del file. Nessun file con questo nome.");
             // e.printStackTrace();
         }
         catch (NullPointerException e) {
-            // e.toString();
-            System.out.println("Letto simbolo errato.");
-        }
-        catch (NotAllowedSymbol e) {
-            e.toString();
-        }
-    }
-
-    public class NotAllowedSymbol extends Exception {
-        public NotAllowedSymbol() {
-            super("Simbolo non accettato");
+            System.out.println("Letto simbolo non accettato.\nFine del programma.");            
+            // e.printStackTrace();
         }
     }
 }
