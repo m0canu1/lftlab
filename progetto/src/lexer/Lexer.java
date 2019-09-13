@@ -4,10 +4,11 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+
 public class Lexer {
-    public static int line = 1; // linea corrente che viene inizializzato a 1
+    public static int line = 1; // linea corrente che viene inizializzata a 1
     private char peek = ' '; // rappresenta il carattere corrente inizializzato a ' '
-    public static String nmb; // Stringa che ha contiene il valore numerico per l'analizzatore sintattico
+    public static String nmb; // Stringa che contiene il valore numerico per l'analizzatore sintattico
 
     private void readch(BufferedReader br) { // metodo che legge il prossimo carattere
         try {
@@ -39,27 +40,27 @@ public class Lexer {
             case '/':
                 readch(br);
                 if (peek == '/') return lexical_scan(br);
-                else if (Character.isLetter(peek) || Character.isDigit(peek)) return Token.div;
-                else if (peek == '*') {
+                else if (Character.isLetter(peek) || Character.isDigit(peek)) return Token.div;  //in questo caso non sarà un commento ma il carattere DIV
+                else if (peek == '*') { //inizia un commento del tipo "/*"
                     readch(br);
-                    boolean flag = false;
+                    boolean flag = false; //flag che controlla che il commento si chiuda correttamente
                     while (peek != '\n' || !flag) {
-                        if (peek == (char) -1) break;
+                        if (peek == (char) -1) break; //
                         readch(br);
                         if (peek == '*') {
                             readch(br);
-                            if (peek == '/') flag = true;
+                            if (peek == '/') flag = true; //fine del commento con "*/"
                         }
                     }
-                    if (!flag) {
-                        System.out.println("Errore causato dalla sezione commenti.");
+                    if (!flag) {//flag = false, quindi non si è chiuso il commento
+                        System.err.println("Errore. Commento non chiuso");
                         return new Token(Tag.EOF);
                     } else {
                         readch(br);
                         return lexical_scan(br);
                     }
                 }
-                else if (peek != '/') {
+                else if (peek != '/') { // inizia un commento del tipo "//" che finisce con l'accapo
                     readch(br);
                     while (peek != '\n') readch(br);
                     readch(br);
@@ -144,15 +145,9 @@ public class Lexer {
             default:
                 if (Character.isLetter(peek)) { // se il carattere è una lettera
                     String s = "";
-                    boolean isNumber = false;
-                    boolean isUnderscore = false;
                     while (Character.isLetter(peek) || Character.isDigit(peek) || peek == '_') {
                         s = s + peek;
                         readch(br);
-                        if (Character.isDigit(peek))
-                            isNumber = true;
-                        if (peek == '_')
-                            isUnderscore = true;
                     }
                     if(s.compareTo("print") == 0)
                         return Word.print;
@@ -180,13 +175,13 @@ public class Lexer {
                 } else {
                     System.err.println("Erroneous character: " + peek);
                     return null;
-                }
+                }//case default
         }
     } //lexical_scan
 
     public static void main(String[] args) {
         Lexer lex = new Lexer();
-        String path = "lexer.txt"; // il percorso del file da leggere
+        String path = "progetto/lexer.txt"; // il percorso del file da leggere
         try {
             BufferedReader br = new BufferedReader(new FileReader(path));
             Token tok;
