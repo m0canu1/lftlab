@@ -43,6 +43,7 @@ public class Parser {
     /**
      * Partenza.
      * Gli unici caratteri accettati in partenza sono "(" o un Numero
+     * S ::= E
      */
     public void start() throws NullPointerException {
         if (look.tag == '(' || look.tag == Tag.NUM) 
@@ -51,7 +52,7 @@ public class Parser {
     }
 
     /**
-     * (expr) ::= (term) (exprp)
+     * E ::= T E'
      */
     private void expr() {
         if (look.tag == '(' || look.tag == Tag.NUM) {
@@ -62,8 +63,8 @@ public class Parser {
     }
 
     /**
-     * (expr) ::= + (term) (exprp) 
-     * (expr)   | - (term) (exprp)
+     * E ::= + T E' 
+     * E   | - T E'
      *         | ε
      */
     private void exprp() {
@@ -89,7 +90,7 @@ public class Parser {
     }
 
     /**
-     * (term) ::= (fact) (termp)
+     * T ::= F T'
      * può iniziare con ( o un numero
      */
     private void term() {
@@ -101,8 +102,8 @@ public class Parser {
     }
 
     /**
-     * () ::= * (fact)(termp)
-     *      | / (fact)(termp)
+     * T' ::= * F T'
+     *      | / F T'
      *      | ε
      */
     private void termp() {
@@ -131,23 +132,23 @@ public class Parser {
     }
 
     /**
-     * (fact) ::= ((expr)) | NUM
+     * F ::= (E) | NUM
      */
     private void fact() {
         switch (look.tag) {
-            case Tag.NUM:
+            case Tag.NUM: //ho letto un NUM
                 match(Tag.NUM);
                 break;
-            default:
-                match('(');
+            case '(': //ho letto una (
+                match(look.tag);
                 expr();
-                if (look.tag == ')')
+                if (look.tag == ')') //dopo aver letto E devo trovare una ), altrimenti errore.
                     match(')');
                 else
                     error("Syntax error");
-                break;
         }
     }
+
     public static void main(String[] args) {
         Lexer lex = new Lexer();
         String path = "progetto/parser.txt";
