@@ -21,9 +21,10 @@ public class Parser {
     /**
      * Legge il prossimo token e lo stampa
      */
-    void move() { //legge il prossimo token e lo stampa
+    void move() {
         look = lex.lexical_scan(pbr);
-        System.out.println("token = " + look);
+        if(look != null) //evito di stampare "token ="
+            System.out.println("token = " + look);
     }
 
     void error(String s) {
@@ -31,9 +32,7 @@ public class Parser {
     }
 
     /**
-     * verifica di non essere arrivati alla fine del file
-     * e che non ci siano errori di tipo sintattico.
-     * Ci si aspetta che il token sia esattamente quello atteso
+     * @param t: è il token atteso. Se VERO, legge il prossimo token (se non è EOF).
      */
     void match(int t) {
         if (look.tag == t) {
@@ -42,26 +41,28 @@ public class Parser {
     }
 
     /**
-     * metodo d'inizio
+     * Partenza.
+     * Gli unici caratteri accettati in partenza sono "(" o un Numero
      */
-    public void start() {
-        if (look.tag == '(' || look.tag == Tag.NUM) {
+    public void start() throws NullPointerException {
+        if (look.tag == '(' || look.tag == Tag.NUM) 
             expr();
-            match(Tag.EOF);
-        } else error("Syntax error");
+        match(Tag.EOF);
     }
+
+    /**
+     * (expr) ::= (term) (exprp)
+     */
     private void expr() {
-        String s = "<expr>";
-        if (look.tag == '(' || look.tag == Tag.NUM) {
             term();
             exprp();
-        } else error("Syntax error");
     }
 
-    /*
-    TODO: verificare correttezza
+    /**
+     * (expr) ::= + (term) (exprp) 
+     * (expr)   | - (term) (exprp)
+     *         | ε
      */
-
     private void exprp() {
         switch (look.tag) {
             case '+':
@@ -83,12 +84,23 @@ public class Parser {
                 break;
         }
     }
+
+    /**
+     * (term) ::= (fact) (termp)
+     * può iniziare con ( o un numero
+     */
     private void term() {
-        if (look.tag == '(' || look.tag == Tag.NUM) {
+        // if (look.tag == '(' || look.tag == Tag.NUM) {
             fact();
             termp();
-        } else error("Syntax error");
+        // } else error("Syntax error");
     }
+
+    /**
+     * () ::= * (fact)(termp)
+     *      | / (fact)(termp)
+     *      | ε
+     */
     private void termp() {
         switch (look.tag) {
             case '*':
@@ -113,6 +125,10 @@ public class Parser {
                 error("Syntax error");
         }
     }
+
+    /**
+     * (fact) ::= ((expr)) | NUM
+     */
     private void fact() {
         switch (look.tag) {
             case Tag.NUM:
@@ -133,7 +149,7 @@ public class Parser {
     }
     public static void main(String[] args) {
         Lexer lex = new Lexer();
-        String path = "parser.txt"; // il percorso del file da leggere
+        String path = "progetto/parser.txt"; // il percorso del file da leggere
         try {
             BufferedReader br = new BufferedReader(new FileReader(path));
             Parser parser = new Parser(lex, br);
@@ -141,5 +157,6 @@ public class Parser {
             System.out.println("Input OK");
             br.close();
         } catch (IOException e) {e.printStackTrace();}
+        catch (NullPointerException e) {System.err.println("Simbolo non accettato.");}
     }
 }
