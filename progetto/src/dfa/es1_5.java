@@ -1,6 +1,7 @@
-/*
-* @author Alexandru Mocanu
-*/
+/**
+ * @author: Alexandru Mocanu
+ * Matricola 813322
+ */
 package dfa;
 
 // TODO CORRETTO

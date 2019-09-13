@@ -1,9 +1,8 @@
-/*
-* @author Alexandru Mocanu
-*/
+/**
+ * @author: Alexandru Mocanu
+ * Matricola 813322
+ */
 package dfa;
-
-
 //TODO corretto
 
 public class es1_10 {

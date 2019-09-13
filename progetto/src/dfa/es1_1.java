@@ -1,7 +1,7 @@
-/*
-* @author Alexandru Mocanu
-* TODO correct
-*/
+/**
+ * @author: Alexandru Mocanu
+ * Matricola 813322
+ */
 package dfa;
 
 import java.util.Scanner;
