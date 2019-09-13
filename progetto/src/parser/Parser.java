@@ -23,7 +23,7 @@ public class Parser {
      */
     void move() {
         look = lex.lexical_scan(pbr);
-        if(look != null) //evito di stampare "token ="
+        if(look != null) //evito di stampare "token = null"
             System.out.println("token = " + look);
     }
 
@@ -44,9 +44,10 @@ public class Parser {
      * Partenza.
      * Gli unici caratteri accettati in partenza sono "(" o un Numero
      */
-    public void start() throws NullPointerException {
+    public void start() throws NotAllowedSymbol, NullPointerException {
         if (look.tag == '(' || look.tag == Tag.NUM) 
             expr();
+        else throw new NotAllowedSymbol();
         match(Tag.EOF);
     }
 
@@ -156,7 +157,22 @@ public class Parser {
             parser.start();
             System.out.println("Input OK");
             br.close();
-        } catch (IOException e) {e.printStackTrace();}
-        catch (NullPointerException e) {System.err.println("Simbolo non accettato.");}
+        } catch (IOException e) {
+            System.out.println("Errore nel file. Nessun file con questo nome.");
+            // e.printStackTrace();
+        }
+        catch (NullPointerException e) {
+            // e.toString();
+            System.out.println("Letto simbolo errato.");
+        }
+        catch (NotAllowedSymbol e) {
+            e.toString();
+        }
+    }
+
+    public class NotAllowedSymbol extends Exception {
+        public NotAllowedSymbol() {
+            super("Simbolo non accettato");
+        }
     }
 }
