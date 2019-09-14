@@ -44,14 +44,75 @@ public class Parser {
     }
 
     /**
-     * Partenza. Gli unici caratteri accettati in partenza sono "(" o un Numero S
-     * ::= E
+     * Partenza. 
+     * 
      */
-    public void start() throws NullPointerException {
-        if (look.tag == '(' || look.tag == Tag.NUM)
+    public void prog() throws NullPointerException {
+        if (look.tag == Tag.ID || look.tag == Tag.PRINT || look.tag ==Tag.READ || look.tag ==Tag.CASE || look.tag ==Tag.WHILE || look.tag == '{')
             expr();
         match(Tag.EOF);
     }
+
+    private void statlist(){
+        if (look.tag == Tag.ID || look.tag == Tag.PRINT || look.tag ==Tag.READ || look.tag ==Tag.CASE || look.tag ==Tag.WHILE || look.tag == '{')
+
+    }
+    private void statlistp(){
+        if(look.tag == ';')
+    }
+    private void stat(){
+        switch(look.tag) {
+            case Tag.ID:
+                match(Tag.ID);
+                if(look.tag == Tag.ASSIGN)
+                break;
+            case Tag.PRINT:
+                match(Tag.PRINT);
+                break;
+            case Tag.READ:
+                match(Tag.READ);
+                break;
+            case Tag.CASE:
+                match(Tag.CASE);
+                break;
+            case Tag.WHILE:
+                match(Tag.WHILE);
+                break;
+            case '{':
+                match('{');
+                break;
+
+        }
+
+    // }
+    // private void whenlist(){
+    //     if()
+    // }
+    // private void whenlistp(){
+    //     if()
+    // }
+    // private void whenitem(){
+    //     if()
+    // }
+    // private void bexpr(){
+    //     if()
+    // }
+    // private void expr(){
+    //     if()
+    // }
+    // private void exprp(){
+    //     if()
+    // }
+    // private void term(){
+    //     if()
+    // }
+    // private void termp (){
+    //     if()
+    // }
+    // private void fact(){
+    //     if()
+    // }
+
 
     /**
      * E ::= T E'

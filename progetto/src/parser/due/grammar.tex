@@ -12,34 +12,34 @@
 \begin{table}[]
     \centering
     \begin{tabular}{|l|c|}
-    \multicolumn{2}{|c|}{GUI SETS}                                         \\
-    P -\textgreater A             & ID, print, read, case, while, \{       \\
-    A -\textgreater S A'          & ID, print, read, case, while, \{       \\
-    A' -\textgreater ; S A'       & ;                                      \\
-    A' -\textgreater $\epsilon$            & EOF, \}                                \\
-    S -\textgreater ID := E       & ID                                     \\
-    S -\textgreater print ( E )   & print                                  \\
-    S -\textgreater read ( ID )   & read                                   \\
-    S -\textgreater case W else S & case                                   \\
-    S -\textgreater while ( B ) S & while                                  \\
-    S -\textgreater \{ A \}       & \{                                     \\
-    W -\textgreater C W'          & when                                   \\
-    W' -\textgreater C W'         & when                                   \\
-    W' -\textgreater $\epsilon$            & else                                   \\
-    C -\textgreater when ( B ) S  & when                                   \\
-    B -\textgreater E RELOP E     & (, NUM, ID                             \\
-    E -\textgreater T E'          & (, NUM, ID                             \\
-    E' -\textgreater + T E'       & +                                      \\
-    E' -\textgreater – T E'       & –                                      \\
-    E' -\textgreater $\epsilon$            & ;, EOF, ), RELOP, when, else, \}       \\
-    T -\textgreater F T'          & (, NUM, ID                             \\
-    T' -\textgreater * F T'       & *                                      \\
-    T' -\textgreater / F T'       & /                                      \\
-    T' -\textgreater $\epsilon$            & +, –, ;, EOF, ), RELOP, when, else, \} \\
-    F -\textgreater ( E )         & (                                      \\
-    F -\textgreater NUM           & NUM                                    \\
-    F -\textgreater ID            & ID                                    
+    \multicolumn{2}{|c|}{GUI SETS dell'Esercizio 3.2}                                         \\
+    $\langle prog \rangle$ ::= $\langle statlist \rangle$ EOF            & ID, print, read, case, while, \{       \\
+    $\langle statlist \rangle$ ::= $\langle stat \rangle$ $\langle statlistp \rangle$          & ID, print, read, case, while, \{       \\
+    $\langle statlistp \rangle$ ::= ; $\langle stat \rangle$ $\langle statlistp \rangle$       & ;                                      \\
+    $\langle statlistp \rangle$ ::= $\epsilon$            & EOF, \}                                \\
+    $\langle stat \rangle$ ::= ID := $\langle expr \rangle$       & ID                                     \\
+    $\langle stat \rangle$ ::= print ( $\langle expr \rangle$ )   & print                                  \\
+    $\langle stat \rangle$ ::= read ( ID )   & read                                   \\
+    $\langle stat \rangle$ ::= case $\langle whenlist \rangle$ else $\langle stat \rangle$ & case                                   \\
+    $\langle stat \rangle$ ::= while ( $\langle bexpr \rangle$ ) $\langle stat \rangle$ & while                                  \\
+    $\langle stat \rangle$ ::= \{ $\langle statlist \rangle$ \}       & \{                                     \\
+    $\langle whenlist \rangle$ ::= $\langle whenitem \rangle$ $\langle whenlistp \rangle$          & when                                   \\
+    $\langle whenlistp \rangle$ ::= $\langle whenitem \rangle$ $\langle whenlistp \rangle$         & when                                   \\
+    $\langle whenlistp \rangle$ ::= $\epsilon$            & else                                   \\
+    $\langle whenitem \rangle$ ::= when ( $\langle bexpr \rangle$ ) $\langle stat \rangle$  & when                                   \\
+    $\langle bexpr \rangle$ ::= $\langle expr \rangle$ RELOP $\langle expr \rangle$     & (, NUM, ID                             \\
+    $\langle expr \rangle$ ::= $\langle term \rangle$ $\langle exprp \rangle$          & (, NUM, ID                             \\
+    $\langle exprp \rangle$ ::= + $\langle term \rangle$ $\langle exprp \rangle$       & +                                      \\
+    $\langle exprp \rangle$ ::= – $\langle term \rangle$ $\langle exprp \rangle$       & –                                      \\
+    $\langle exprp \rangle$ ::= $\epsilon$            & ;, EOF, ), RELOP, when, else, \}       \\
+    $\langle term \rangle$ ::= $\langle fact \rangle$ $\langle termp \rangle$          & (, NUM, ID                             \\
+    $\langle termp \rangle$ ::= * $\langle fact \rangle$ $\langle termp \rangle$       & *                                      \\
+    $\langle termp \rangle$ ::= / $\langle fact \rangle$ $\langle termp \rangle$       & /                                      \\
+    $\langle termp \rangle$ ::= $\epsilon$            & +, –, ;, EOF, ), RELOP, when, else, \} \\
+    $\langle fact \rangle$ ::= ( $\langle expr \rangle$ )         & (                                      \\
+    $\langle fact \rangle$ ::= NUM           & NUM                                    \\
+    $\langle fact \rangle$ ::= ID            & ID                                    
     \end{tabular}
     \end{table}
-    
+
 \end{document}
