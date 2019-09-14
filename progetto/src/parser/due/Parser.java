@@ -54,11 +54,27 @@ public class Parser {
     }
 
     private void statlist(){
-        if (look.tag == Tag.ID || look.tag == Tag.PRINT || look.tag ==Tag.READ || look.tag ==Tag.CASE || look.tag ==Tag.WHILE || look.tag == '{')
-
+        if (look.tag == Tag.ID || look.tag == Tag.PRINT || look.tag ==Tag.READ || look.tag ==Tag.CASE || look.tag ==Tag.WHILE || look.tag == '{') {
+            stat();
+            statlistp();
+        } else
+            error("Error in statlist. Found " + look);
     }
     private void statlistp(){
-        if(look.tag == ';')
+        switch(look.tag) {
+            case ';':
+                match(look.tag);
+                stat();
+                statlistp();
+            case Tag.EOF:
+                break; //epsilon
+            case '}':
+                break; //epsilon
+            default:
+                error("Error in statlistp. Found " + look);
+                break;
+        }
+
     }
     private void stat(){
         switch(look.tag) {
@@ -68,36 +84,108 @@ public class Parser {
                     match(look.tag);
                     expr();
                 }
-                else error("Erroneous character after ID. Expected := but found: " + look);
+                else 
+                    error("Erroneous character after ID. Expected := but found: " + look);
                 break;
             case Tag.PRINT:
                 match(Tag.PRINT);
+                if(look.tag == '(') {
+                    match(look.tag);
+                    expr();
+                    if (look.tag == ')')
+                        match(look.tag); //continuo a leggere
+                    else
+                        error("Erroneous character. Expected ) but found: " + look);
+                } else
+                    error("Erroneous character after PRINT. Expected ( but found: " + look);
                 break;
             case Tag.READ:
                 match(Tag.READ);
+                if(look.tag == '(') {
+                    match(look.tag);
+                    // Tag.ID
+                    if(look.tag == ')')
+                        match(look.tag);
+                    else 
+                        error("Erroneous character. Expected ) but found: " + look);
+                } else
+                    error("Erroneous character after READ. Expected ( but found: " + look);
                 break;
             case Tag.CASE:
                 match(Tag.CASE);
+                whenlist();
+                if(look.tag == Tag.ELSE) {
+                    match(look.tag);
+                    stat();
+                } else
+                    error("Erroneous character after CASE. Expected ELSE but found: " + look);
                 break;
             case Tag.WHILE:
                 match(Tag.WHILE);
+                if(look.tag == '(') {
+                    match(look.tag);
+                    bexpr();
+                    if(look.tag == ')'){
+                        match(look.tag);
+                        stat();
+                    } else
+                        error("Erroneous character. Expected ) but found: " + look);
+                } else 
+                    error("Erroneous character after WHILE. Expected ( but found: " + look);
                 break;
             case '{':
                 match('{');
+                statlist();
+                if (look.tag == '}') 
+                    match(look.tag);
+                else 
+                    error("Erroneous character. Expected } but found: " + look);
                 break;
+            }
+    }
 
+    /**
+     * 
+     */
+    private void whenlist(){
+        if (look.tag) {
+            whenitem();
+            whenlistp();
+        } else
+            error("Erroneous character in whenlist. Expected WHEN but found: " + look);
+    }
+
+    /**
+     * 
+     */
+    private void whenlistp(){
+        switch(look.tag) {
+            case Tag.WHEN:
+                whenitem();
+                whenlistp();
+                break;
+            case Tag.ELSE:
+                break;
+            default:
+                error("Erroneous character in WhenListP, expected ) but found: " + look);
+                break;
         }
+    }
 
-    // }
-    // private void whenlist(){
-    //     if()
-    // }
-    // private void whenlistp(){
-    //     if()
-    // }
-    // private void whenitem(){
-    //     if()
-    // }
+
+    /**
+     * 
+     */
+    private void whenitem(){
+        if(look.tag == Tag.WHEN) {
+            match(look.tag);
+            if (look.tag == '('){
+                match(look.tag);
+                
+            }
+        }
+    }
+
     // private void bexpr(){
     //     if()
     // }
@@ -217,7 +305,7 @@ public class Parser {
         try {
             BufferedReader br = new BufferedReader(new FileReader(path));
             Parser parser = new Parser(lex, br);
-            parser.start();
+            parser.prog();
             System.out.println("\nInput OK\n");
             br.close();
         } catch (IOException e) {
