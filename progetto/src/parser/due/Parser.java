@@ -148,7 +148,7 @@ public class Parser {
      * 
      */
     private void whenlist(){
-        if (look.tag) {
+        if (look.tag == Tag.WHEN) {
             whenitem();
             whenlistp();
         } else
@@ -181,127 +181,166 @@ public class Parser {
             match(look.tag);
             if (look.tag == '('){
                 match(look.tag);
-                
+                bexpr();
+                if (look.tag == ')') {
+                    match(look.tag);
+                    stat();
+                } else
+                    error("Erroneous character. Expected ) but found: " + look);
             }
-        }
+        } else
+            error("Error in whenitem. Expected WHEN but found: " + look);
     }
 
-    // private void bexpr(){
-    //     if()
-    // }
-    // private void expr(){
-    //     if()
-    // }
-    // private void exprp(){
-    //     if()
-    // }
-    // private void term(){
-    //     if()
-    // }
-    // private void termp (){
-    //     if()
-    // }
-    // private void fact(){
-    //     if()
-    // }
-
+    /**
+     *
+     */
+     private void bexpr(){
+         if(look.tag == '(' || look.tag == Tag.NUM || look.tag == Tag.ID) {
+             expr();
+             if (look.tag == Tag.RELOP) {
+                 match(look.tag);
+                 expr();
+             } else
+                 error("Erroneous character in bexpr. Invalid boolean expression");
+         } //TODO non ci va l'else?
+     }
 
     /**
-     * E ::= T E'
+     *
      */
     private void expr() {
-        if (look.tag == '(' || look.tag == Tag.NUM) {
+        if (look.tag == '(' || look.tag == Tag.NUM || look.tag == Tag.ID) {
             term();
             exprp();
         } else
-            error("Syntax error");
+            error("Erroneous character in expr. Found " + look);
     }
 
     /**
-     * E' ::= + T E' E' | - T E' | ε
+     *
      */
-    private void exprp() {
+     private void exprp(){
+         switch (look.tag)  {
+             case '+':
+                 match(look.tag);
+                 term();
+                 exprp();
+                 break;
+             case '-':
+                 match(look.tag);
+                 term();
+                 exprp();
+                 break;
+             case ';':
+                 break;
+             case Tag.EOF:
+                 break;
+             case ')':
+                 break;
+             case Tag.RELOP:
+                 break;
+             case Tag.WHEN:
+                 break;
+             case Tag.ELSE:
+                 break;
+             case '}':
+                 break;
+             default:
+                 error("Erroneous character in exprp. Found " + look);
+                 break;
+         }
+     }
+
+
+    /**
+     *
+     */
+    private void term(){
+        if (look.tag == '(' || look.tag == Tag.NUM || look.tag == Tag.ID) {
+            fact();
+            termp();
+        } else
+            error("Erroneous character in term. Found " + look);
+    }
+
+    /**
+     *
+     */
+    private void termp (){
         switch (look.tag) {
-        case '+':
-            match('+');
-            term();
-            exprp();
-            break;
-        case '-':
-            match('-');
-            term();
-            exprp();
-            break;
-        case ')':
-            break;
-        case Tag.EOF:
-            break;
-        default:
-            error("Syntax error");
-            break;
+            case '*':
+                break;
+            case '/':
+                break;
+            case '+':
+                break;
+            case '-':
+                break;
+            case ';':
+                break;
+            case Tag.EOF:
+                break;
+            case ')':
+                break;
+            case Tag.RELOP:
+                break;
+            case Tag.WHEN:
+                break;
+            case Tag.ELSE:
+                break;
+            case '}':
+                break;
+            default:
+                error("Erroneous character in termp. Found " + look);
+                break;
         }
     }
 
     /**
-     * T ::= F T' può iniziare con ( o un numero
-     */
-    private void term() {
-        if (look.tag == '(' || look.tag == Tag.NUM) {
-            fact();
-            termp();
-        } else
-            error("Syntax error");
-    }
-
-    /**
-     * T' ::= * F T' | / F T' | ε
-     */
-    private void termp() {
-        switch (look.tag) {
-        case '*':
-            match('*');
-            fact();
-            termp();
-            break;
-        case '/':
-            match('/');
-            fact();
-            termp();
-            break;
-        case '+':
-            break;
-        case '-':
-            break;
-        case ')':
-            break;
-        case Tag.EOF:
-            break;
-        default:
-            error("Syntax error");
-        }
-    }
-
-    /**
-     * F ::= (E) | NUM
+     *
      */
     private void fact() {
         switch (look.tag) {
-        case Tag.NUM: // ho letto un NUM
-            match(Tag.NUM);
-            break;
-        case '(': // ho letto una (
-            match(look.tag);
-            expr();
-            if (look.tag == ')') // dopo aver letto E devo trovare una ), altrimenti errore.
-                match(')');
-            else
-                error("Syntax error");
+            case '(':
+                match(look.tag);
+                expr();
+                if (look.tag == ')')
+                    match(look.tag);
+                else
+                    error("Erroneous character in Fact. Expected ) but missing.");
+                break;
+            case Tag.NUM:
+                break;
+            case Tag.ID:
+                break;
+            default:
+                error("Erroneous character in Fact. Found " + look);
+                break;
         }
-    }
+     }
+
+//    /**
+//     * F ::= (E) | NUM
+//     */
+//    private void fact() {
+//        switch (look.tag) {
+//        case Tag.NUM: // ho letto un NUM
+//            match(Tag.NUM);
+//            break;
+//        case '(': // ho letto una (
+//            match(look.tag);
+//            expr();
+//            if (look.tag == ')') // dopo aver letto E devo trovare una ), altrimenti errore.
+//                match(')');
+//            else
+//                error("Syntax error");
+//        }
+//    }
 
     public static void main(String[] args) {
         Lexer lex = new Lexer();
-        String path = "progetto/parser.txt";
+        String path = "../progetto/parser2.txt";
         try {
             BufferedReader br = new BufferedReader(new FileReader(path));
             Parser parser = new Parser(lex, br);
