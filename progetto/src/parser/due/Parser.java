@@ -40,7 +40,7 @@ public class Parser {
             if (look.tag != Tag.EOF)
                 move();
         } else
-            error("syntax error");
+            error("syntax error.");
     }
 
     /**
@@ -48,9 +48,13 @@ public class Parser {
      * 
      */
     public void prog() throws NullPointerException {
-        if (look.tag == Tag.ID || look.tag == Tag.PRINT || look.tag ==Tag.READ || look.tag ==Tag.CASE || look.tag ==Tag.WHILE || look.tag == '{')
-            expr();
-        match(Tag.EOF);
+        if (look.tag == Tag.ID || look.tag == Tag.PRINT || look.tag ==Tag.READ || look.tag ==Tag.CASE || look.tag ==Tag.WHILE || look.tag == '{') {
+            statlist();
+            if(look.tag == Tag.EOF) 
+                match(Tag.EOF);
+        } else {
+            error("Error in prog. Found: " + look);
+        }
     }
 
     private void statlist(){
@@ -60,6 +64,10 @@ public class Parser {
         } else
             error("Error in statlist. Found " + look);
     }
+
+    /**
+     * 
+     */
     private void statlistp(){
         switch(look.tag) {
             case ';':
@@ -75,6 +83,9 @@ public class Parser {
                 break;
         }
 
+    /**
+     * 
+     */
     }
     private void stat(){
         switch(look.tag) {
@@ -103,6 +114,7 @@ public class Parser {
                 match(Tag.READ);
                 if(look.tag == '(') {
                     match(look.tag);
+                    expr();
                     // Tag.ID
                     if(look.tag == ')')
                         match(look.tag);
@@ -223,12 +235,12 @@ public class Parser {
      private void exprp(){
          switch (look.tag)  {
              case '+':
-                 match(look.tag);
+                 match('+');
                  term();
                  exprp();
                  break;
              case '-':
-                 match(look.tag);
+                 match('-');
                  term();
                  exprp();
                  break;
@@ -270,8 +282,14 @@ public class Parser {
     private void termp (){
         switch (look.tag) {
             case '*':
+                match('*');
+                fact();
+                termp();
                 break;
             case '/':
+                match('/');
+                fact();
+                termp();
                 break;
             case '+':
                 break;
@@ -303,7 +321,7 @@ public class Parser {
     private void fact() {
         switch (look.tag) {
             case '(':
-                match(look.tag);
+                match('(');
                 expr();
                 if (look.tag == ')')
                     match(look.tag);
@@ -311,8 +329,14 @@ public class Parser {
                     error("Erroneous character in Fact. Expected ) but missing.");
                 break;
             case Tag.NUM:
+                match(Tag.NUM);
+                if (look.tag == '(')
+                    error("Erroneous character in fact. Found: NUM(");
                 break;
             case Tag.ID:
+                match(Tag.ID);
+                if (look.tag == '(')
+					error("Erroneous character in fact. Found: ID(");
                 break;
             default:
                 error("Erroneous character in Fact. Found " + look);
@@ -340,7 +364,7 @@ public class Parser {
 
     public static void main(String[] args) {
         Lexer lex = new Lexer();
-        String path = "../progetto/parser2.txt";
+        String path = "progetto/parser2.txt";
         try {
             BufferedReader br = new BufferedReader(new FileReader(path));
             Parser parser = new Parser(lex, br);
@@ -349,7 +373,7 @@ public class Parser {
             br.close();
         } catch (IOException e) {
             System.out.println("Errore del file. Nessun file con questo nome.");
-            // e.printStackTrace();
+            e.printStackTrace();
         } catch (NullPointerException e) {
             System.out.println("Letto simbolo non accettato.\nFine del programma.");
             // e.printStackTrace();
