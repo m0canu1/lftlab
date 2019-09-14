@@ -1,0 +1,45 @@
+\documentclass[12pt]{article}
+
+\usepackage{mathtools}
+\usepackage{tikz}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+
+\begin{document}
+
+\begin{table}[]
+    \centering
+    \begin{tabular}{|l|c|}
+    \multicolumn{2}{|c|}{GUI SETS}                                         \\
+    P -\textgreater A             & ID, print, read, case, while, \{       \\
+    A -\textgreater S A'          & ID, print, read, case, while, \{       \\
+    A' -\textgreater ; S A'       & ;                                      \\
+    A' -\textgreater $\epsilon$            & EOF, \}                                \\
+    S -\textgreater ID := E       & ID                                     \\
+    S -\textgreater print ( E )   & print                                  \\
+    S -\textgreater read ( ID )   & read                                   \\
+    S -\textgreater case W else S & case                                   \\
+    S -\textgreater while ( B ) S & while                                  \\
+    S -\textgreater \{ A \}       & \{                                     \\
+    W -\textgreater C W'          & when                                   \\
+    W' -\textgreater C W'         & when                                   \\
+    W' -\textgreater $\epsilon$            & else                                   \\
+    C -\textgreater when ( B ) S  & when                                   \\
+    B -\textgreater E RELOP E     & (, NUM, ID                             \\
+    E -\textgreater T E'          & (, NUM, ID                             \\
+    E' -\textgreater + T E'       & +                                      \\
+    E' -\textgreater – T E'       & –                                      \\
+    E' -\textgreater $\epsilon$            & ;, EOF, ), RELOP, when, else, \}       \\
+    T -\textgreater F T'          & (, NUM, ID                             \\
+    T' -\textgreater * F T'       & *                                      \\
+    T' -\textgreater / F T'       & /                                      \\
+    T' -\textgreater $\epsilon$            & +, –, ;, EOF, ), RELOP, when, else, \} \\
+    F -\textgreater ( E )         & (                                      \\
+    F -\textgreater NUM           & NUM                                    \\
+    F -\textgreater ID            & ID                                    
+    \end{tabular}
+    \end{table}
+    
+\end{document}

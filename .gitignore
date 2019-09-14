@@ -1,1 +1,6 @@
 .vscode/launch.json
+progetto/src/parser/due/grammar.aux
+progetto/src/parser/due/grammar.fdb_latexmk
+progetto/src/parser/due/grammar.fls
+progetto/src/parser/due/grammar.log
+progetto/src/parser/due/grammar.synctex.gz
