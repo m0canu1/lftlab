@@ -4,8 +4,6 @@
  */
 package dfa;
 
-// TODO CORRETTO
-
 public class es1_9 {
     public static boolean scan(String s) {
         int state = 0; // stato iniziale q0

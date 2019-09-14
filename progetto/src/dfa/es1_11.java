@@ -4,8 +4,6 @@
  */
 package dfa;
 
-//TODO corretto
-
 public class es1_11 {
     public static boolean scan(String s) {
         int state = 0;

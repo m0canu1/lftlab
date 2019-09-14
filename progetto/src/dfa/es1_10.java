@@ -3,7 +3,6 @@
  * Matricola 813322
  */
 package dfa;
-//TODO corretto
 
 public class es1_10 {
     public static boolean scan(String s) {

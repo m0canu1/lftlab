@@ -14,7 +14,6 @@ import static java.lang.Character.isLetter;
  * che non puo' essere composto solo dal simbolo _.
  */
 
-// TODO: CORRETTO
 public class es1_2 {
     public static boolean scan(String s) {
         int state = 0; //stato iniziale

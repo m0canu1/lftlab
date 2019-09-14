@@ -4,7 +4,6 @@
  */
 package dfa;
 
-// TODO corretto
 public class es1_4 {
 
     /* PARI */
