@@ -71,7 +71,7 @@ public class Parser {
     private void statlistp(){
         switch(look.tag) {
             case ';':
-                match(look.tag);
+                match(';');
                 stat();
                 statlistp();
             case Tag.EOF:
@@ -92,7 +92,7 @@ public class Parser {
             case Tag.ID:
                 match(Tag.ID);
                 if(look.tag == Tag.ASSIGN) {
-                    match(look.tag);
+                    match(Tag.ASSIGN);
                     expr();
                 }
                 else 
@@ -101,10 +101,10 @@ public class Parser {
             case Tag.PRINT:
                 match(Tag.PRINT);
                 if(look.tag == '(') {
-                    match(look.tag);
+                    match('(');
                     expr();
                     if (look.tag == ')')
-                        match(look.tag); //continuo a leggere
+                        match(')'); //continuo a leggere
                     else
                         error("Erroneous character. Expected ) but found: " + look);
                 } else
@@ -113,11 +113,10 @@ public class Parser {
             case Tag.READ:
                 match(Tag.READ);
                 if(look.tag == '(') {
-                    match(look.tag);
+                    match('(');
                     expr();
-                    // Tag.ID
                     if(look.tag == ')')
-                        match(look.tag);
+                        match(')');
                     else 
                         error("Erroneous character. Expected ) but found: " + look);
                 } else
@@ -127,7 +126,7 @@ public class Parser {
                 match(Tag.CASE);
                 whenlist();
                 if(look.tag == Tag.ELSE) {
-                    match(look.tag);
+                    match(Tag.ELSE);
                     stat();
                 } else
                     error("Erroneous character after CASE. Expected ELSE but found: " + look);
@@ -135,10 +134,10 @@ public class Parser {
             case Tag.WHILE:
                 match(Tag.WHILE);
                 if(look.tag == '(') {
-                    match(look.tag);
+                    match('(');
                     bexpr();
                     if(look.tag == ')'){
-                        match(look.tag);
+                        match(')');
                         stat();
                     } else
                         error("Erroneous character. Expected ) but found: " + look);
@@ -149,7 +148,7 @@ public class Parser {
                 match('{');
                 statlist();
                 if (look.tag == '}') 
-                    match(look.tag);
+                    match('}');
                 else 
                     error("Erroneous character. Expected } but found: " + look);
                 break;
@@ -190,12 +189,12 @@ public class Parser {
      */
     private void whenitem(){
         if(look.tag == Tag.WHEN) {
-            match(look.tag);
+            match(Tag.WHEN);
             if (look.tag == '('){
-                match(look.tag);
+                match('(');
                 bexpr();
                 if (look.tag == ')') {
-                    match(look.tag);
+                    match(')');
                     stat();
                 } else
                     error("Erroneous character. Expected ) but found: " + look);
@@ -211,7 +210,7 @@ public class Parser {
          if(look.tag == '(' || look.tag == Tag.NUM || look.tag == Tag.ID) {
              expr();
              if (look.tag == Tag.RELOP) {
-                 match(look.tag);
+                 match(Tag.RELOP);
                  expr();
              } else
                  error("Erroneous character in bexpr. Invalid boolean expression");
@@ -324,7 +323,7 @@ public class Parser {
                 match('(');
                 expr();
                 if (look.tag == ')')
-                    match(look.tag);
+                    match(')');
                 else
                     error("Erroneous character in Fact. Expected ) but missing.");
                 break;
@@ -343,24 +342,6 @@ public class Parser {
                 break;
         }
      }
-
-//    /**
-//     * F ::= (E) | NUM
-//     */
-//    private void fact() {
-//        switch (look.tag) {
-//        case Tag.NUM: // ho letto un NUM
-//            match(Tag.NUM);
-//            break;
-//        case '(': // ho letto una (
-//            match(look.tag);
-//            expr();
-//            if (look.tag == ')') // dopo aver letto E devo trovare una ), altrimenti errore.
-//                match(')');
-//            else
-//                error("Syntax error");
-//        }
-//    }
 
     public static void main(String[] args) {
         Lexer lex = new Lexer();
