@@ -64,7 +64,11 @@ public class Parser {
         switch(look.tag) {
             case Tag.ID:
                 match(Tag.ID);
-                if(look.tag == Tag.ASSIGN)
+                if(look.tag == Tag.ASSIGN) {
+                    match(look.tag);
+                    expr();
+                }
+                else error("Erroneous character after ID. Expected := but found: " + look);
                 break;
             case Tag.PRINT:
                 match(Tag.PRINT);
