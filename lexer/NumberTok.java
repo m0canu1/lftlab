@@ -1,4 +1,3 @@
-package lexer;
 
 public class NumberTok extends Token {
     public String lexeme = "";

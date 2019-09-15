@@ -1,4 +1,3 @@
-package parser.due;
 
 import lexer.Lexer;
 import lexer.Tag;

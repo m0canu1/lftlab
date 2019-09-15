@@ -1,4 +1,3 @@
-package parser.uno;
 
 import lexer.Lexer;
 import lexer.Tag;
