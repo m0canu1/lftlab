@@ -2,7 +2,7 @@
  * @author: Alexandru Mocanu
  * Matricola 813322
  */
-package dfa;
+
 
 // TODO corretto, studiare automa
 public class es1_6 {

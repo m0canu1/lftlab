@@ -2,7 +2,6 @@
  * @author: Alexandru Mocanu
  * Matricola 813322
  */
-package dfa;
 
 /**
  * Progettare e implementare un DFA che riconosca il linguaggio di stringhe che

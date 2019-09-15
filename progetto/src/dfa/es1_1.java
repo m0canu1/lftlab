@@ -2,7 +2,6 @@
  * @author: Alexandru Mocanu
  * Matricola 813322
  */
-package dfa;
 
 import java.util.Scanner;
 
