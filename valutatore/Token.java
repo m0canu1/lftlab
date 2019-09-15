@@ -1,4 +1,3 @@
-package valutatore;
 
 public class Token {
     public final int tag;

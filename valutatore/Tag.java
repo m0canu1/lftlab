@@ -1,4 +1,3 @@
-package valutatore;
 
 public class Tag {
     public final static int

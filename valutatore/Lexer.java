@@ -1,4 +1,3 @@
-package valutatore;
 
 /**
  * @author: Alexandru Mocanu
