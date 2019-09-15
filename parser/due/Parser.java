@@ -1,8 +1,4 @@
 
-import lexer.Lexer;
-import lexer.Tag;
-import lexer.Token;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -57,7 +53,7 @@ public class Parser {
     }
 
     private void statlist(){
-        if (look.tag == Tag.ID || look.tag == Tag.PRINT || look.tag ==Tag.READ || look.tag ==Tag.CASE || look.tag ==Tag.WHILE || look.tag == '{') {
+        if (look.tag == Tag.ID || look.tag == Tag.PRINT || look.tag == Tag.READ || look.tag == Tag.CASE || look.tag == Tag.WHILE || look.tag == '{') {
             stat();
             statlistp();
         } else
@@ -230,37 +226,31 @@ public class Parser {
     /**
      *
      */
-     private void exprp(){
-         switch (look.tag)  {
-             case '+':
-                 match('+');
-                 term();
-                 exprp();
-                 break;
-             case '-':
-                 match('-');
-                 term();
-                 exprp();
-                 break;
-             case ';':
-                 break;
-             case Tag.EOF:
-                 break;
-             case ')':
-                 break;
-             case Tag.RELOP:
-                 break;
-             case Tag.WHEN:
-                 break;
-             case Tag.ELSE:
-                 break;
-             case '}':
-                 break;
-             default:
-                 error("Erroneous character in exprp. Found " + look);
-                 break;
-         }
-     }
+    private void exprp(){
+        switch (look.tag)  {
+            case '+':
+                match('+');
+                term();
+                exprp();
+                break;
+            case '-':
+                match('-');
+                term();
+                exprp();
+                break;
+            case ';':
+            case Tag.EOF:
+            case ')':
+            case Tag.RELOP:
+            case Tag.WHEN:
+            case Tag.ELSE:
+            case '}':
+                break;
+            default:
+                error("Erroneous character in exprp. Found " + look);
+                break;
+        }
+    }
 
 
     /**
@@ -290,21 +280,13 @@ public class Parser {
                 termp();
                 break;
             case '+':
-                break;
             case '-':
-                break;
             case ';':
-                break;
             case Tag.EOF:
-                break;
             case ')':
-                break;
             case Tag.RELOP:
-                break;
             case Tag.WHEN:
-                break;
             case Tag.ELSE:
-                break;
             case '}':
                 break;
             default:

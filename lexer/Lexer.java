@@ -43,8 +43,12 @@ public class Lexer {
                 return Token.mult;
             case '/':
                 readch(br);
-                if (peek == '/') return lexical_scan(br);
-                else if (Character.isLetter(peek) || Character.isDigit(peek)) return Token.div;  //in questo caso non sarà un commento ma il carattere DIV
+                if (peek == '/') { // inizia un commento del tipo "//" che finisce con l'accapo
+                    readch(br);
+                    while (peek != '\n') readch(br);
+                    readch(br);
+                    return lexical_scan(br);
+                }
                 else if (peek == '*') { //inizia un commento del tipo "/*"
                     readch(br);
                     boolean flag = false; //flag che controlla che il commento si chiuda correttamente
@@ -64,12 +68,7 @@ public class Lexer {
                         return lexical_scan(br);
                     }
                 }
-                else if (peek != '/') { // inizia un commento del tipo "//" che finisce con l'accapo
-                    readch(br);
-                    while (peek != '\n') readch(br);
-                    readch(br);
-                    return lexical_scan(br);
-                }
+                else if (Character.isLetter(peek) || Character.isDigit(peek) || peek == ' ') return Token.div;  //in questo caso non sarà un commento ma il carattere DIV
             case ';':
                 peek = ' ';
                 return Token.semicolon;
@@ -162,6 +161,14 @@ public class Lexer {
                         return Word.elsetok;
                     else if (s.compareTo("if") == 0)
                         return Word.iftok;
+                    else if (s.compareTo("when") == 0)
+                        return Word.when;
+                    else if (s.compareTo("case") == 0)
+                        return Word.casetok;
+                    else if (s.compareTo("do") == 0)
+                        return Word.dotok;
+                    else if (s.compareTo("then") == 0)
+                        return Word.then;
                     else
                         return new Word(Tag.ID, s);
 

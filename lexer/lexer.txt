@@ -9,4 +9,5 @@ d:=300; /*distanza*//*da Torino a Lione*/
 
 x*/y
 
-d:=300; /*distanza;*/
+d:=300; //distanza;
+x  /    y

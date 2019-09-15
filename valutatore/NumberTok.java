@@ -1,5 +1,4 @@
 
-
 public class NumberTok extends Token {
     public String lexeme = "";
     public NumberTok(int tag, String s) {
