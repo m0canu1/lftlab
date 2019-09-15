@@ -74,7 +74,7 @@ public class Translator {
                         st.insert(((Word)look).lexeme,count++);
                     } 
                     match(Tag.ID); 
-                    match(’)’); 
+                    match(’)’; 
                     code.emit(OpCode.invokestatic,0);
                     code.emit(OpCode.istore,read_id_addr);
                 } else
