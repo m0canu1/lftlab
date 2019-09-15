@@ -2,6 +2,12 @@ import java.io.BufferedReader;
 
 import com.sun.org.apache.xerces.internal.util.SymbolTable;
 
+import Lexer.java;
+import OpCode.java;
+import Token.java;
+import CodeGenerator.java;
+
+
 public class Translator {
     private Lexer lex;
     private BufferedReader pbr;
@@ -41,9 +47,10 @@ public class Translator {
             error("syntax error");
     }
 
+
     public void prog() {
         //completare
-        int lnext_prog = code.newLabel();
+        int lnext_prog = code.newLabel(); //S.next = S.newLabeL()
         statlist(lnext_prog);
         code.emitLabel(lnext_prog);
         match(Tag.EOF);
@@ -87,7 +94,7 @@ public class Translator {
 
     }
     
-    private void b_expr(int ltrue, int lfalse) {
+    private void bexpr(int ltrue, int lfalse) {
          // ... completare ... 
          expr(); 
          if (look == Word.eq) { 
@@ -99,17 +106,169 @@ public class Translator {
     
     // ... completare ... 
         
-    
+    /**
+     *
+     */
+    private void bexpr(int ltrue, int lfalse) { //label true, label false
+        if (look.tag == '(' || look.tag == Tag.NUM || look.tag == Tag.ID) {
+            expr();
+            switch (look.tag) {
+                case Word.lt:
+                    
+                    break;
+                case Word.gt:
+
+                break;
+                case Word.eq:
+
+                break;
+                case Word.le:
+
+                break;
+            case Word.ne:
+
+                break;
+            case Word.ge:
+
+                break;
+                default:
+                    break;
+            }
+            if (look.tag == Tag.RELOP) {
+                match(Tag.RELOP);
+                expr();
+            } else
+                error("Erroneous character in bexpr. Invalid boolean expression");
+        } // TODO non ci va l'else?
+    }
+
+
+    /**
+     *
+     */
+    private void expr() {
+        if (look.tag == '(' || look.tag == Tag.NUM || look.tag == Tag.ID) {
+            term();
+            exprp();
+        } else
+            error("Erroneous character in expr. Found " + look);
+    }
+
     private void exprp() { 
         switch(look.tag) { 
-            case ’+’: 
-            match(’+’); 
-            term(); 
-            code.emit(OpCode.iadd); 
-            exprp(); 
+            case '+': 
+                match('+'); 
+                term(); 
+                code.emit(OpCode.iadd); 
+                exprp(); 
             break; 
+            case '-':
+                match('-');
+                term();
+                code.emit(OpCode.isub);
+                exprp();
+            break;
+        case ';':
+        case Tag.EOF:
+        case ')':
+        case Tag.RELOP:
+        case Tag.WHEN:
+        case Tag.ELSE:
+        case '}':
+            break;
+        default:
+            error("Erroneous character in exprp. Found " + look);
+            break;
             // ... completare ... 
         } 
     } 
-            // ... completare ...
+
+    private void term() {
+        if (look.tag == '(' || look.tag == Tag.NUM || look.tag == Tag.ID) {
+            fact();
+            termp();
+        } else
+            error("Erroneous character in term. Found " + look);
+    }
+
+    /**
+     *
+     */
+    private void termp() {
+        switch (look.tag) {
+        case '*':
+            match('*');
+            fact();
+            code.emit(OpCode.imul);
+            termp();
+            break;
+        case '/':
+            match('/');
+            fact();
+            code.emit(OpCode.idiv)
+            termp();
+            break;
+        case '+':
+        case '-':
+        case ';':
+        case Tag.EOF:
+        case ')':
+        case Tag.RELOP:
+        case Tag.WHEN:
+        case Tag.ELSE:
+        case '}':
+            break;
+        default:
+            error("Erroneous character in termp. Found " + look);
+            break;
+        }
+    }
+
+    /**
+     *
+     */
+    private void fact() {
+        switch (look.tag) {
+        case '(':
+            match('(');
+            expr();
+            if (look.tag == ')')
+                match(')');
+            else
+                error("Erroneous character in Fact. Expected ) but missing.");
+            break;
+        case Tag.NUM:
+            int constant = Integer.valueOf(((NumberTok)look).lexeme); //emit(ldc(NUM))
+            match(Tag.NUM);
+            if (look.tag == '(')
+                error("Erroneous character in fact. Found: NUM(");
+            break;
+        case Tag.ID:
+            int id_addr = st.lookupAddress(((Word)look).lexeme);
+            code.emit(OpCode.iload, id_addr);
+            match(Tag.ID);
+            if (look.tag == '(')
+                error("Erroneous character in fact. Found: ID(");
+            break;
+        default:
+            error("Erroneous character in Fact. Found " + look);
+            break;
+        }
+    }
+    
+    public static void main(String[] args) {
+        Lexer lex = new Lexer();
+        // String path = "testtranslator1.pas";
+        // String path = "testExprTranslator.pas";
+        // String path = "test1.pas";
+        // String path = "test2.pas";
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(path));
+            Translator translator = new Translator(lex, br);
+            translator.prog();
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

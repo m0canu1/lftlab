@@ -254,7 +254,7 @@ public class Parser {
 
 
     /**
-     *
+     * TODO scrivere insiemi guida
      */
     private void term(){
         if (look.tag == '(' || look.tag == Tag.NUM || look.tag == Tag.ID) {
