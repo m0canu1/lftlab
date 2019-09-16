@@ -3,17 +3,17 @@ package traduttore;
 import java.util.LinkedList;
 import java.io.*;
 
-public class CodeGenerator {
+class CodeGenerator {
 
     private LinkedList<Instruction> instructions = new LinkedList<Instruction>();
 
     private int label = 0;
 
-    public void emit(OpCode opCode) {
+    void emit(OpCode opCode) {
         instructions.add(new Instruction(opCode));
     }
 
-    public void emit(OpCode opCode, int operand) {
+    void emit(OpCode opCode, int operand) {
         instructions.add(new Instruction(opCode, operand));
     }
 

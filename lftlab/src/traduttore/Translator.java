@@ -392,7 +392,7 @@ public class Translator {
     
     public static void main(String[] args) {
         Lexer lex = new Lexer();
-        String path = "A.pas";
+        String path = "src/traduttore/A.pas";
         // String path = "B.pas";
         // String path = "C.pas";
         // String path = "testExprTranslator.pas";
