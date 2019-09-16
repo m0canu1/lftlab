@@ -10,3 +10,4 @@ progetto/parser/due/grammar.fls
 progetto/parser/due/grammar.log
 progetto/parser/due/grammar.synctex.gz
 *.class
+lftlab/out/*
