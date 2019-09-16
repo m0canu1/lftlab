@@ -1,5 +1,5 @@
 package lexer;
-/**
+/*
  * @author: Alexandru Mocanu
  * Matricola 813322
  */
@@ -42,7 +42,7 @@ public class Lexer {
                 peek = ' ';
                 return Token.mult;
             case '/':
-                readch(br);
+                readch(br); // leggi prossimo carattere
                 if (peek == '/') { // inizia un commento del tipo "//" che finisce con l'accapo
                     readch(br);
                     while (peek != '\n') readch(br);
@@ -50,13 +50,13 @@ public class Lexer {
                     return lexical_scan(br);
                 } else if (peek == '*') { //inizia un commento del tipo "/*"
                     readch(br);
-                    boolean flag = false; //flag che controlla che il commento si chiuda correttamente
+                    boolean flag = false; //flag che controlla che il commento venga chiuso
                     while (peek != '\n' || !flag) {
-                        if (peek == (char) -1) break; //
+                        if (peek == (char) -1) break; //se raggiunge EOF finisce.
                         readch(br);
-                        if (peek == '*') {
+                        if (peek == '*') { //continua a leggere finché non trova *
                             readch(br);
-                            if (peek == '/') flag = true; //fine del commento con "*/"
+                            if (peek == '/') flag = true; //si è chiuso un commento del tipo */
                         }
                     }
                     if (!flag) {//flag = false, quindi non si è chiuso il commento

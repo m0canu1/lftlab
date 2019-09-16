@@ -13,7 +13,7 @@ public class Parser {
     private BufferedReader pbr;
     private Token look;
 
-    public Parser(Lexer l, BufferedReader br) {
+    private Parser(Lexer l, BufferedReader br) {
         lex = l;
         pbr = br;
         move();
@@ -22,20 +22,20 @@ public class Parser {
     /**
      * Legge il prossimo token e lo stampa
      */
-    void move() {
+    private void move() {
         look = lex.lexical_scan(pbr);
         if (look != null) // evito di stampare "token = null"
             System.err.println("token = " + look);
     }
 
-    void error(String s) {
+    private void error(String s) {
         throw new Error("near line " + lex.line + ": " + s);
     }
 
     /**
      * @param t: è il token atteso. Se VERO, legge il prossimo token (se non è EOF).
      */
-    void match(int t) {
+    private void match(int t) {
         if (look.tag == t) {
             if (look.tag != Tag.EOF)
                 move();
@@ -44,10 +44,11 @@ public class Parser {
     }
 
     /**
-     * Partenza. 
+     * Metodo di partenza.
+     * GUI { ID , print , read , case , while , { }
      * 
      */
-    public void prog() throws NullPointerException {
+    private void prog() throws NullPointerException {
         if (look.tag == Tag.ID || look.tag == Tag.PRINT || look.tag ==Tag.READ || look.tag ==Tag.CASE || look.tag ==Tag.WHILE || look.tag == '{') {
             statlist();
             if(look.tag == Tag.EOF) 
@@ -57,6 +58,9 @@ public class Parser {
         }
     }
 
+    /**
+     * GUI { ID , print , read , case , while , { }
+     */
     private void statlist(){
         if (look.tag == Tag.ID || look.tag == Tag.PRINT || look.tag == Tag.READ || look.tag == Tag.CASE || look.tag == Tag.WHILE || look.tag == '{') {
             stat();
@@ -66,7 +70,7 @@ public class Parser {
     }
 
     /**
-     * 
+     * GUI { ; , EOF , } }
      */
     private void statlistp(){
         switch(look.tag) {
@@ -75,18 +79,18 @@ public class Parser {
                 stat();
                 statlistp();
             case Tag.EOF:
-                break; //epsilon
             case '}':
                 break; //epsilon
             default:
                 error("Error in statlistp. Found " + look);
                 break;
         }
+    }
 
     /**
-     * 
+     * É il metodo che si occupa di guardare le istruzioni chiave
+     * GUI { ID , print , read , case , while , { }
      */
-    }
     private void stat(){
         switch(look.tag) {
             case Tag.ID:
@@ -156,7 +160,7 @@ public class Parser {
     }
 
     /**
-     * 
+     * GUI { when }
      */
     private void whenlist(){
         if (look.tag == Tag.WHEN) {
@@ -167,7 +171,7 @@ public class Parser {
     }
 
     /**
-     * 
+     * GUI { when , else }
      */
     private void whenlistp(){
         switch(look.tag) {
@@ -183,9 +187,8 @@ public class Parser {
         }
     }
 
-
     /**
-     * 
+     * GUI { when }
      */
     private void whenitem(){
         if(look.tag == Tag.WHEN) {
@@ -204,7 +207,7 @@ public class Parser {
     }
 
     /**
-     *
+     * GUI { ( , NUM , ID }
      */
      private void bexpr(){
          if(look.tag == '(' || look.tag == Tag.NUM || look.tag == Tag.ID) {
@@ -218,7 +221,7 @@ public class Parser {
      }
 
     /**
-     *
+     * GUI { ( , NUM , ID }
      */
     private void expr() {
         if (look.tag == '(' || look.tag == Tag.NUM || look.tag == Tag.ID) {
@@ -229,7 +232,7 @@ public class Parser {
     }
 
     /**
-     *
+     * GUI { + , - , ) , ; , RELOP. EOF, when , else , } }
      */
     private void exprp(){
         switch (look.tag)  {
@@ -257,9 +260,8 @@ public class Parser {
         }
     }
 
-
     /**
-     * TODO scrivere insiemi guida
+     * GUI { ( , NUM , ID }
      */
     private void term(){
         if (look.tag == '(' || look.tag == Tag.NUM || look.tag == Tag.ID) {
@@ -270,7 +272,7 @@ public class Parser {
     }
 
     /**
-     *
+     * GUI { * , / , + , - , ; , EOF , ) , when , else , } }
      */
     private void termp (){
         switch (look.tag) {
@@ -301,7 +303,7 @@ public class Parser {
     }
 
     /**
-     *
+     * GUI { ( , NUM , ID }
      */
     private void fact() {
         switch (look.tag) {
@@ -340,7 +342,7 @@ public class Parser {
             br.close();
         } catch (IOException e) {
             System.out.println("Errore del file. Nessun file con questo nome.");
-            e.printStackTrace();
+//            e.printStackTrace();
         } catch (NullPointerException e) {
             System.out.println("Letto simbolo non accettato.\nFine del programma.");
             // e.printStackTrace();

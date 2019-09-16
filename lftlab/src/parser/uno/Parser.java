@@ -12,7 +12,7 @@ public class Parser {
     private Lexer lex;
     private BufferedReader pbr;
     private Token look;
-    public Parser(Lexer l, BufferedReader br) {
+    private Parser(Lexer l, BufferedReader br) {
         lex = l;
         pbr = br;
         move();
@@ -21,20 +21,20 @@ public class Parser {
     /**
      * Legge il prossimo token e lo stampa
      */
-    void move() {
+    private void move() {
         look = lex.lexical_scan(pbr);
         if(look != null) //evito di stampare "token = null"
             System.out.println("token = " + look);
     }
 
-    void error(String s) {
+    private void error(String s) {
         throw new Error("near line " + lex.line + ": " + s);
     }
 
     /**
      * @param t: è il token atteso. Se VERO, legge il prossimo token (se non è EOF).
      */
-    void match(int t) {
+    private void match(int t) {
         if (look.tag == t) {
             if (look.tag != Tag.EOF) move();
         } else error("syntax error");
@@ -44,8 +44,9 @@ public class Parser {
      * Partenza.
      * Gli unici caratteri accettati in partenza sono "(" o un Numero
      * S ::= E
+     * GUI { (, NUM }
      */
-    public void start() throws NullPointerException {
+    private void start() throws NullPointerException {
         if (look.tag == '(' || look.tag == Tag.NUM) 
             expr();
         match(Tag.EOF);
@@ -53,6 +54,7 @@ public class Parser {
 
     /**
      * E ::= T E'
+     * GUI { (, NUM }
      */
     private void expr() {
         if (look.tag == '(' || look.tag == Tag.NUM) {
@@ -66,6 +68,8 @@ public class Parser {
      * E' ::= + T E' 
      * E'   | - T E'
      *         | ε
+     *
+     *  GUI { + , - , ) , EOF }
      */
     private void exprp() {
         switch (look.tag) {
@@ -80,9 +84,8 @@ public class Parser {
                 exprp();
                 break;
             case ')':
-                break;
             case Tag.EOF:
-                break;
+                break; //epsilon
             default:
                 error("Syntax error");
                 break;
@@ -92,6 +95,8 @@ public class Parser {
     /**
      * T ::= F T'
      * può iniziare con ( o un numero
+     *
+     * GUI { (, NUM }
      */
     private void term() {
         if (look.tag == '(' || look.tag == Tag.NUM) {
@@ -105,6 +110,8 @@ public class Parser {
      * T' ::= * F T'
      *      | / F T'
      *      | ε
+     *
+     *  GUI { * , / , + , - , ) , EOF }
      */
     private void termp() {
         switch (look.tag) {
@@ -119,11 +126,8 @@ public class Parser {
                 termp();
                 break;
             case '+':
-                break;
             case '-':
-                break;
             case ')':
-                break;
             case Tag.EOF:
                 break;
             default:
@@ -133,6 +137,7 @@ public class Parser {
 
     /**
      * F ::= (E) | NUM
+     * GUI { (, NUM }
      */
     private void fact() {
         switch (look.tag) {
