@@ -14,3 +14,4 @@ while(d>10){
 case 
 when (n>2) ID:=10
 else ID:=5
+

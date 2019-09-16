@@ -173,7 +173,7 @@ public class Parser {
             case Tag.ELSE:
                 break;
             default:
-                error("Erroneous character in WhenListP, expected ) but found: " + look);
+                error("Erroneous character in whenlistp. Expected ) but found: " + look);
                 break;
         }
     }

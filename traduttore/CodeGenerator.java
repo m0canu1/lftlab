@@ -25,7 +25,7 @@ public class CodeGenerator {
     }
 
     public void toJasmin() throws IOException {
-        PrintWriter out = new PrintWriter(new FileWriter("C:\\Users\\maico\\Desktop\\LFT\\LFT\\Esercizio5\\Output.j"));
+        PrintWriter out = new PrintWriter(new FileWriter("Output.j"));
         String temp = "";
         temp = temp + header;
         while (instructions.size() > 0) {
