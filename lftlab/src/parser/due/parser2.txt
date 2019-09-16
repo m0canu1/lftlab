@@ -1,0 +1,17 @@
+case 
+when (n>2) print(1)
+when (x>0) print(2)
+when (y>0) {print(y); print(3)}
+else print(5);
+
+while(d>10){
+    d:=30;
+    f:=92
+};
+
+//x:=5+(2*2)
+
+case 
+when (n>2) ID:=10
+else ID:=5
+

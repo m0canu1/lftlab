@@ -1,0 +1,51 @@
+P = prog
+A statalist
+A' statalistp
+B bexpr
+W whenlist
+W' whenlistp
+C whenitem
+T term
+T' termp
+E expr
+E' exprp
+F fact
+S stat
+
+
+P -> A
+A -> S A'
+A' -> ; S A'
+A' -> ε
+
+S -> ID := E
+S -> print ( E )
+S -> read ( ID )
+S -> case W else S
+S -> while ( B ) S
+S -> { A }
+
+W -> C W'
+
+W' -> C W'
+W' -> ε
+
+C -> when ( B ) S
+
+B -> E RELOP E
+
+E -> T E'
+
+E' -> + T E'
+E' -> – T E'
+E' -> ε
+
+T -> F T'
+
+T' -> * F T'
+T' -> / F T'
+T' -> ε
+
+F -> ( E )
+F -> NUM 
+F -> ID

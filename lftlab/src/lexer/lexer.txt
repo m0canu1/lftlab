@@ -1,0 +1,13 @@
+/* calcolare la velocita‘ */
+d:=300; // distanza
+t:=10; // tempo
+print(d*t)
+case when x>y then x:=0 else y:=0;
+while (cases<=printread) do cases:=cases+1;
+
+d:=300; /*distanza*//*da Torino a Lione*/
+
+x*/y
+
+d:=300; //distanza;
+x  /    y
