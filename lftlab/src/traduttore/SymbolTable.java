@@ -14,9 +14,10 @@ class SymbolTable {
     }
 
     int lookupAddress(String s) {
-        if (OffsetMap.containsKey(s))
-            return OffsetMap.get(s);
-        else
-            return -1;
+//        if (OffsetMap.containsKey(s))
+//            return OffsetMap.get(s);
+//        else
+//            return -1;
+        return OffsetMap.getOrDefault(s, -1);
     }
 }
