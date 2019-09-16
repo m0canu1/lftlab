@@ -27,7 +27,7 @@ class CodeGenerator {
     }
 
     void toJasmin() throws IOException {
-        PrintWriter out = new PrintWriter(new FileWriter("Output.j"));
+        PrintWriter out = new PrintWriter(new FileWriter("src/traduttore/Output.j"));
         String temp = "";
         temp = temp + header;
         while (instructions.size() > 0) {
