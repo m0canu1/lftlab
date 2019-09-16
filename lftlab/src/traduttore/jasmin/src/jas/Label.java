@@ -8,7 +8,7 @@
  * @version $Revision: 1.2 $
  */
 
-package jas;
+package traduttore.jasmin.src.jas;
 
 import java.io.*;
 

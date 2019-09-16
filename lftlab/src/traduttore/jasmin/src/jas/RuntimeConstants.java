@@ -1,7 +1,7 @@
 
 /* Constants used in JVM class files */
 
-package jas;
+package traduttore.jasmin.src.jas;
 
 public interface RuntimeConstants {
 

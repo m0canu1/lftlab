@@ -1,3 +1,5 @@
+package traduttore.jasmin.src;
+
 import jasmin.Main;
 
 public class Jasmin {

@@ -1,3 +1,9 @@
+package valutatore;
+
+import lexer.Lexer;
+import lexer.NumberTok;
+import lexer.Tag;
+import lexer.Token;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -8,7 +14,7 @@ public class Valutatore {
     private BufferedReader pbr;
     private Token look;
 
-    public Valutatore(Lexer l, BufferedReader br) {
+    private Valutatore(Lexer l, BufferedReader br) {
          lex = l; 
          pbr = br; 
          move(); 
@@ -17,28 +23,27 @@ public class Valutatore {
     /**
      * Legge il prossimo token e lo stampa
      */
-    void move() {
+    private void move() {
         look = lex.lexical_scan(pbr);
         if (look != null) // evito di stampare "token = null"
             System.out.println("token = " + look);
     }
 
-    void error(String s) {
-
+    private void error(String s) {
         throw new Error("near line " + lex.line + ": " + s);
     }
 
     /**
      * @param t: è il token atteso. Se VERO, legge il prossimo token (se non è EOF).
      */
-    void match(int t) {
+    private void match(int t) {
         if (look.tag == t) {
             if (look.tag != Tag.EOF) move();
         } else
             error("syntax error");
     }
 
-    public void start() {
+    private void start() {
         int expr_val;
         if (look.tag == '(' || look.tag == Tag.NUM) {
             expr_val = expr();
@@ -73,8 +78,6 @@ public class Valutatore {
                 exprp_val = exprp(exprp_i - term_val);
                 break;
             case ')':
-                exprp_val = exprp_i;
-                break;
             case Tag.EOF:
                 exprp_val = exprp_i;
                 break;
@@ -111,14 +114,8 @@ public class Valutatore {
                 termp_val = termp(termp_i / fact_val);
                 break;
             case '+':
-                termp_val = termp_i;
-                break;
             case '-':
-                termp_val = termp_i;
-                break;
             case ')':
-                termp_val = termp_i;
-                break;
             case Tag.EOF:
                 termp_val = termp_i;
                 break;
@@ -133,7 +130,7 @@ public class Valutatore {
         int fact_val = 0;
         switch (look.tag) {
             case Tag.NUM:
-                fact_val = Integer.valueOf(((NumberTok)look).lexeme);
+                fact_val = Integer.parseInt(((NumberTok)look).lexeme);
                 match(Tag.NUM);
                 break;
             case '(':
@@ -150,7 +147,7 @@ public class Valutatore {
 
     public static void main(String[] args) {
         Lexer lex = new Lexer();
-        String path = "progetto/valutatore.txt";
+        String path = "/home/alex/Desktop/git/lftlab/lftlab/src/valutatore/valutatore.txt";
         try {
             BufferedReader br = new BufferedReader(new FileReader(path));
             Valutatore valutatore = new Valutatore(lex, br);

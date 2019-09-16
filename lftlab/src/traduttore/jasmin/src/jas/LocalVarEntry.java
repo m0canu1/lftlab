@@ -4,7 +4,7 @@
  * and is used while debugging.
  */
 
-package jas;
+package traduttore.jasmin.src.jas;
 
 import java.io.*;
 

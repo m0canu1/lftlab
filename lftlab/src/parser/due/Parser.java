@@ -1,3 +1,8 @@
+package parser.due;
+
+import lexer.Lexer;
+import lexer.Tag;
+import lexer.Token;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -326,10 +331,10 @@ public class Parser {
 
     public static void main(String[] args) {
         Lexer lex = new Lexer();
-        String path = "parser2.txt";
+        String path = "/home/alex/Desktop/git/lftlab/lftlab/src/parser/due/parser2.txt";
         try {
             BufferedReader br = new BufferedReader(new FileReader(path));
-            Parser parser = new Parser(lex, br);
+            parser.due.Parser parser = new Parser(lex, br);
             parser.prog();
             System.out.println("\nInput OK\n");
             br.close();
@@ -341,4 +346,5 @@ public class Parser {
             // e.printStackTrace();
         }
     }
+
 }

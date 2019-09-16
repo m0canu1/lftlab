@@ -1,4 +1,4 @@
-package jas;
+package traduttore.jasmin.src.jas;
 
 /**
  * Error thrown on problems encountered while running the

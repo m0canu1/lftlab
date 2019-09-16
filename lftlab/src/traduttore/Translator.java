@@ -1,3 +1,7 @@
+package traduttore;
+
+import lexer.*;
+
 import java.io.*;
 
 public class Translator {
@@ -5,11 +9,11 @@ public class Translator {
     private BufferedReader pbr;
     private Token look;
 
-    SymbolTable st = new SymbolTable();
-    CodeGenerator code = new CodeGenerator();
-    int count = 0;
+    private SymbolTable st = new SymbolTable();
+    private CodeGenerator code = new CodeGenerator();
+    private int count = 0;
 
-    public Translator (Lexer l, BufferedReader br) {
+    private Translator(Lexer l, BufferedReader br) {
         lex = l;
         pbr = br;
         move();
@@ -18,20 +22,20 @@ public class Translator {
     /**
      * Legge il prossimo token e lo stampa
      */
-    void move() {
+    private void move() {
         look = lex.lexical_scan(pbr);
         if (look != null) // evito di stampare "token = null"
             System.out.println("token = " + look);
     }
 
-    void error(String s) {
+    private void error(String s) {
         throw new Error("near line " + lex.line + ": " + s);
     }
 
     /**
      * @param t: è il token atteso. Se VERO, legge il prossimo token (se non è EOF).
      */
-    void match(int t) {
+    private void match(int t) {
         if (look.tag == t) {
             if (look.tag != Tag.EOF)
                 move();
@@ -40,7 +44,7 @@ public class Translator {
     }
 
 
-    public void prog() {
+    private void prog() {
         if (look.tag == Tag.ID || look.tag == Tag.PRINT || look.tag ==Tag.READ || look.tag ==Tag.CASE || look.tag ==Tag.WHILE || look.tag == '{') {
             //completare
             int lnext_prog = code.newLabel(); //S.next = S.newLabeL() //forse va fuori
@@ -57,7 +61,7 @@ public class Translator {
             error("Error in prog. Found: " + look);
     }
 
-    public void stat (int lnext) {
+    private void stat(int lnext) {
         switch (look.tag) {
             case Tag.ID:
                 if(look.tag == Tag.ID) {
@@ -72,7 +76,7 @@ public class Translator {
                     expr();
                     code.emit(OpCode.istore, id_addr);
                     code.emitLabel(next_id);
-                } else 
+                } else
                     error("Error in grammar (stat) after ID, found " + look);
                 break;
             case Tag.PRINT:
@@ -165,7 +169,6 @@ public class Translator {
                 stat(lnext);
                 statlistp(lnext);
             case Tag.EOF:
-                break; //epsilon
             case '}':
                 break; //epsilon
             default:
@@ -368,7 +371,7 @@ public class Translator {
                 error("Erroneous character in Fact. Expected ) but missing.");
             break;
         case Tag.NUM:
-            int constant = Integer.valueOf(((NumberTok)look).lexeme);
+            int constant = Integer.parseInt(((NumberTok)look).lexeme);
             code.emit(OpCode.ldc, constant); //emit(ldc(NUM))
             match(Tag.NUM);
             if (look.tag == '(')

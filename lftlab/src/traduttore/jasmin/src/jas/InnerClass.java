@@ -2,7 +2,7 @@
  * @author $Author: Iouri Kharon $
  * @version $Revision: 1.0 $
  */
-package jas;
+package traduttore.jasmin.src.jas;
 
 import java.io.*;
 

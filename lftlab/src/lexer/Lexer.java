@@ -48,8 +48,7 @@ public class Lexer {
                     while (peek != '\n') readch(br);
                     readch(br);
                     return lexical_scan(br);
-                }
-                else if (peek == '*') { //inizia un commento del tipo "/*"
+                } else if (peek == '*') { //inizia un commento del tipo "/*"
                     readch(br);
                     boolean flag = false; //flag che controlla che il commento si chiuda correttamente
                     while (peek != '\n' || !flag) {
@@ -67,8 +66,8 @@ public class Lexer {
                         readch(br);
                         return lexical_scan(br);
                     }
-                }
-                else if (Character.isLetter(peek) || Character.isDigit(peek) || peek == ' ') return Token.div;  //in questo caso non sarà un commento ma il carattere DIV
+                } else
+                    return Token.div;  //in questo caso non sarà un commento ma il carattere DIV
             case ';':
                 peek = ' ';
                 return Token.semicolon;
@@ -188,5 +187,4 @@ public class Lexer {
                 }//case default
         }
     } //lexical_scan
-
 }

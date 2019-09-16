@@ -4,7 +4,7 @@
  *
  */
 
-package jas;
+package traduttore.jasmin.src.jas;
 
 import java.io.DataOutputStream;
 import java.io.IOException;

@@ -2,7 +2,7 @@
                                 // package. It is used to
                                 // handle the various types
                                 // of operands used by Insns.
-package jas;
+package traduttore.jasmin.src.jas;
 
 import java.io.*;
 

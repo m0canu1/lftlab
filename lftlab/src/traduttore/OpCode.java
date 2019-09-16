@@ -1,3 +1,5 @@
+package traduttore;
+
 public enum OpCode {
     ldc, imul, ineg, idiv, iadd, 
     isub, istore, ior, iand, iload, 

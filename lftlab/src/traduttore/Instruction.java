@@ -1,18 +1,20 @@
-public class Instruction {
+package traduttore;
+
+class Instruction {
 
     OpCode opCode;
     int operand;
 
-    public Instruction(OpCode opCode) {
+    Instruction(OpCode opCode) {
         this.opCode = opCode;
     }
 
-    public Instruction(OpCode opCode, int operand) {
+    Instruction(OpCode opCode, int operand) {
         this.opCode = opCode;
         this.operand = operand;
     }
 
-    public String toJasmin() {
+    String toJasmin() {
         String temp = "";
         switch (opCode) {
         case ldc:

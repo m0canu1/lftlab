@@ -1,11 +1,13 @@
+package traduttore;
+
 import java.util.LinkedList;
 import java.io.*;
 
 public class CodeGenerator {
 
-    LinkedList<Instruction> instructions = new LinkedList<Instruction>();
+    private LinkedList<Instruction> instructions = new LinkedList<Instruction>();
 
-    int label = 0;
+    private int label = 0;
 
     public void emit(OpCode opCode) {
         instructions.add(new Instruction(opCode));
@@ -15,16 +17,16 @@ public class CodeGenerator {
         instructions.add(new Instruction(opCode, operand));
     }
 
-    public void emitLabel(int operand) {
+    void emitLabel(int operand) {
         emit(OpCode.label, operand);
     }
 
-    public int newLabel() {
+    int newLabel() {
         return label++;
 
     }
 
-    public void toJasmin() throws IOException {
+    void toJasmin() throws IOException {
         PrintWriter out = new PrintWriter(new FileWriter("Output.j"));
         String temp = "";
         temp = temp + header;

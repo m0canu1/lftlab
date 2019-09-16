@@ -1,4 +1,4 @@
-package jas;
+package traduttore.jasmin.src.jas;
 
 import java.io.*;
 
