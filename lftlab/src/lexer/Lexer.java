@@ -12,7 +12,6 @@ import java.io.IOException;
 public class Lexer {
     public static int line = 1; // linea corrente che viene inizializzata a 1
     private char peek = ' '; // rappresenta il carattere corrente inizializzato a ' '
-    public static String nmb; // Stringa che contiene il valore numerico per l'analizzatore sintattico
 
     private void readch(BufferedReader br) { // metodo che legge il prossimo carattere
         try {
@@ -140,10 +139,18 @@ public class Lexer {
                             + " after = : "  + peek );
                     return null;
                 }
+            case '_': //caso dell'ìdentificatore che inizia con "_"
+                readch(br);
+                if (peek == ' ') { //un identificatore non può contenere solo "_"
+                    System.err.println("Erroneous character"
+                            + " after = : "  + peek );
+                    return null;
+                } else return new Token('_');
+
             case (char)-1:
                 return new Token(Tag.EOF);
-
-            default:
+//TODO case _ identificatore
+            default:  //il caso dell'identificatore che può iniziare con solo con una lettera o con "_"
                 if (Character.isLetter(peek)) { // se il carattere è una lettera
                     String s = "";
                     while (Character.isLetter(peek) || Character.isDigit(peek) || peek == '_') {
