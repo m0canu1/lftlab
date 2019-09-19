@@ -50,7 +50,7 @@ public class Lexer {
                 } else if (peek == '*') { //inizia un commento del tipo "/*"
                     readch(br);
                     boolean flag = false; //flag che controlla che il commento venga chiuso
-                    while (peek != '\n' || !flag) {
+                    while (peek != '\n' || !flag) { //TODO peek != \n forse errato
                         if (peek == (char) -1) break; //se raggiunge EOF finisce.
                         readch(br);
                         if (peek == '*') { //continua a leggere finché non trova *
@@ -88,7 +88,7 @@ public class Lexer {
                     peek = ' ';
                     return Word.and;
                 } else {
-                    System.err.println("Erroneous character" + " after & : "  + peek );
+                    System.err.println("Erroneous character" + " after & : \""  + peek + "\"" );
                     return null;
                 }
             case '|':
@@ -107,7 +107,7 @@ public class Lexer {
                     return Word.assign;
                 } else {
                     System.err.println("Erroneous character"
-                            + " after : : "  + peek );
+                            + " after : : \""  + peek + "\"" );
                     return null;
                 }
             case '<':
@@ -136,16 +136,23 @@ public class Lexer {
                     return Word.eq;
                 } else {
                     System.err.println("Erroneous character"
-                            + " after = : "  + peek );
+                            + " after = : \""  + peek + "\"" );
                     return null;
                 }
             case '_': //caso dell'ìdentificatore che inizia con "_"
                 readch(br);
                 if (peek == ' ') { //un identificatore non può contenere solo "_"
                     System.err.println("Erroneous character"
-                            + " after = : "  + peek );
+                            + " after _ : \""  + peek + "\"");
                     return null;
-                } else return new Token('_');
+                } else {
+                    String s = "_";
+                    while (Character.isLetter(peek) || Character.isDigit(peek) || peek == '_') {
+                        s = s + peek;
+                        readch(br);
+                    }
+                    return new Word(Tag.ID, s);
+                }
 
             case (char)-1:
                 return new Token(Tag.EOF);

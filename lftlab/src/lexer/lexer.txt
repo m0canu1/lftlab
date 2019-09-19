@@ -1,3 +1,5 @@
+read(_y2);
+
 /* calcolare la velocita‘ */
 d:=300; // distanza
 t:=10; // tempo
