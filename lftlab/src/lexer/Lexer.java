@@ -50,7 +50,7 @@ public class Lexer {
                 } else if (peek == '*') { //inizia un commento del tipo "/*"
                     readch(br);
                     boolean flag = false; //flag che controlla che il commento venga chiuso
-                    while (peek != '\n' || !flag) { //TODO peek != \n forse errato
+                    while (!flag) {
                         if (peek == (char) -1) break; //se raggiunge EOF finisce.
                         readch(br);
                         if (peek == '*') { //continua a leggere finché non trova *
