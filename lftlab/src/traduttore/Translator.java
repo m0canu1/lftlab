@@ -43,6 +43,9 @@ public class Translator {
             error("syntax error");
     }
 
+    /**
+     * TODO SCRIVERE INSIEMI GUIDA
+     */
 
     private void prog() {
         if (look.tag == Tag.ID || look.tag == Tag.PRINT || look.tag ==Tag.READ || look.tag ==Tag.CASE || look.tag ==Tag.WHILE || look.tag == '{') {

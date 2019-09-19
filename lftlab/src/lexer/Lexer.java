@@ -88,7 +88,7 @@ public class Lexer {
                     peek = ' ';
                     return Word.and;
                 } else {
-                    System.err.println("Erroneous character" + " after & : \""  + peek + "\"" );
+                    System.err.println("Erroneous character" + " after & : \""  + peek + "\"");
                     return null;
                 }
             case '|':
@@ -97,7 +97,7 @@ public class Lexer {
                     peek = ' ';
                     return Word.or;
                 } else {
-                    System.err.println("Erroneous character" + " afer | : " + peek);
+                    System.err.println("Erroneous character" + " afer | : \""  + peek + "\"");
                     return null;
                 }
             case ':':
@@ -107,7 +107,7 @@ public class Lexer {
                     return Word.assign;
                 } else {
                     System.err.println("Erroneous character"
-                            + " after : : \""  + peek + "\"" );
+                            + " after : : \""  + peek + "\"");
                     return null;
                 }
             case '<':
