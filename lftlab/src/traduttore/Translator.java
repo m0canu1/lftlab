@@ -44,13 +44,12 @@ public class Translator {
     }
 
     /**
-     * TODO SCRIVERE INSIEMI GUIDA
+     * Metodo di partenza.
+     * GUI { ID , print , read , case , while , { }
      */
-
     private void prog() {
         if (look.tag == Tag.ID || look.tag == Tag.PRINT || look.tag ==Tag.READ || look.tag ==Tag.CASE || look.tag ==Tag.WHILE || look.tag == '{') {
-            //completare
-            int lnext_prog = code.newLabel(); //S.next = S.newLabeL() //forse va fuori
+            int lnext_prog = code.newLabel(); //S.next = S.newLabeL()
             statlist(lnext_prog);
             code.emitLabel(lnext_prog);
             match(Tag.EOF);
@@ -64,31 +63,35 @@ public class Translator {
             error("Error in prog. Found: " + look);
     }
 
+    /**
+     * É il metodo che si occupa di guardare le istruzioni chiave
+     * GUI { ID , print , read , case , while , { }
+     */
     private void stat(int lnext) {
         switch (look.tag) {
             case Tag.ID:
                 if(look.tag == Tag.ID) {
-                    int next_id = code.newLabel();
+//                    int next_id = code.newLabel();
                     int id_addr = st.lookupAddress(((Word)look).lexeme);
                     if (id_addr == -1) { // controlla se l'ID è già assegnato a un indirizzo
-                        id_addr = count;
+                        id_addr = count; //assegna all'indirizzo puntato da count
                         st.insert((((Word)look).lexeme), count++); //inserisce nella Symbol Table
                     }
                     match(Tag.ID);
                     match(Tag.ASSIGN);
                     expr();
-                    code.emit(OpCode.istore, id_addr);
-                    code.emitLabel(next_id);
+                    code.emit(OpCode.istore, id_addr); //istore nell'indirizzo di id_addr
+//                    code.emitLabel(next_id);
                 } else
                     error("Error in grammar (stat) after ID, found " + look);
                 break;
             case Tag.PRINT:
-                int next_print = code.newLabel();
+//                int next_print = code.newLabel();
                 match(Tag.PRINT);
                 match('(');
                 expr();
                 code.emit(OpCode.invokestatic, 1); // 1 invoca la funzione print
-                code.emitLabel(next_print);
+//                code.emitLabel(next_print);
                 match(')');
                 break;
             case Tag.READ:
@@ -96,11 +99,11 @@ public class Translator {
                 match(Tag.READ); 
                 match('('); 
                 if (look.tag==Tag.ID) { 
-                    int read_id_addr = st.lookupAddress(((Word)look).lexeme); //TODO fare come nel caso ID se funziona
+                    int read_id_addr = st.lookupAddress(((Word)look).lexeme);
                     if (read_id_addr==-1) { 
-                        read_id_addr = count; 
+                        read_id_addr = count;
                         st.insert(((Word)look).lexeme,count++);
-                    } 
+                    }
                     match(Tag.ID); 
                     match(')');
                     code.emit(OpCode.invokestatic,0);
@@ -152,7 +155,7 @@ public class Translator {
     }
 
     /**
-     *
+     * GUI { ID , print , read , case , while , { }
      */
     private void statlist(int lnext){
         if (look.tag == Tag.ID || look.tag == Tag.PRINT || look.tag == Tag.READ || look.tag == Tag.CASE || look.tag == Tag.WHILE || look.tag == '{') {
@@ -163,7 +166,7 @@ public class Translator {
     }
 
     /**
-     *
+     * GUI { ; , EOF , } }
      */
     private void statlistp(int lnext){
         switch(look.tag) {
@@ -181,7 +184,7 @@ public class Translator {
     }
 
     /**
-     * 
+     * GUI { when }
      */
     private void whenlist(int lnext) {
         if (look.tag == Tag.WHEN) {
@@ -192,7 +195,7 @@ public class Translator {
     }
 
     /**
-     *
+     * GUI { when , else }
      */
     private void whenlistp(int lnext){
         switch(look.tag) {
@@ -209,7 +212,7 @@ public class Translator {
     }
 
     /**
-     *
+     * GUI { when }
      */
     private void whenitem(int lnext){
         if(look.tag == Tag.WHEN) {
@@ -231,9 +234,9 @@ public class Translator {
         } else
             error("Error in whenitem. Expected WHEN but found: " + look);
     }
-        
+
     /**
-     *
+     * GUI { ( , NUM , ID }
      */
     private void bexpr(int ltrue, int lfalse) { //label true, label false
         if (look.tag == '(' || look.tag == Tag.NUM || look.tag == Tag.ID) {
@@ -277,7 +280,7 @@ public class Translator {
 
 
     /**
-     *
+     * GUI { ( , NUM , ID }
      */
     private void expr() {
         if (look.tag == '(' || look.tag == Tag.NUM || look.tag == Tag.ID) {
@@ -288,7 +291,7 @@ public class Translator {
     }
 
     /**
-     *
+     * GUI { + , - , ) , ; , RELOP. EOF, when , else , } }
      */
     private void exprp() { 
         switch(look.tag) { 
@@ -317,8 +320,11 @@ public class Translator {
             break;
             // ... completare ... 
         } 
-    } 
+    }
 
+    /**
+     * GUI { ( , NUM , ID }
+     */
     private void term() {
         if (look.tag == '(' || look.tag == Tag.NUM || look.tag == Tag.ID) {
             fact();
@@ -328,7 +334,7 @@ public class Translator {
     }
 
     /**
-     *
+     * GUI { * , / , + , - , ; , EOF , ) , when , else , } }
      */
     private void termp() {
         switch (look.tag) {
@@ -361,7 +367,7 @@ public class Translator {
     }
 
     /**
-     *
+     * GUI { ( , NUM , ID }
      */
     private void fact() {
         switch (look.tag) {
