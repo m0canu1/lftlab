@@ -92,7 +92,7 @@ public class Translator {
                 match(')');
                 break;
             case Tag.READ:
-                int next_read = code.newLabel();
+//                int next_read = code.newLabel();
                 match(Tag.READ); 
                 match('('); 
                 if (look.tag==Tag.ID) { 
@@ -105,7 +105,7 @@ public class Translator {
                     match(')');
                     code.emit(OpCode.invokestatic,0);
                     code.emit(OpCode.istore,read_id_addr);
-                    code.emitLabel(next_read);
+//                    code.emitLabel(next_read);
                 } else
                     error("Error in grammar (stat) after read( with " + look);
                 break;
