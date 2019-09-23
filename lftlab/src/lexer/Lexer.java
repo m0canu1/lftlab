@@ -1,8 +1,9 @@
-package lexer;
 /*
  * @author: Alexandru Mocanu
  * Matricola 813322
  */
+
+package lexer;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

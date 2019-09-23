@@ -1,3 +1,8 @@
+/*
+ * @author: Alexandru Mocanu
+ * Matricola 813322
+ */
+
 package valutatore;
 
 import lexer.Lexer;

@@ -1,10 +1,9 @@
-package dfa;
-
-/**
+/*
  * @author: Alexandru Mocanu
  * Matricola 813322
  */
 
+package dfa;
 
 public class es1_7 {
     public static boolean scan(String s) {

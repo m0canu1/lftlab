@@ -1,3 +1,8 @@
+/*
+ * @author: Alexandru Mocanu
+ * Matricola 813322
+ */
+
 package traduttore;
 
 import lexer.*;
@@ -132,7 +137,7 @@ public class Translator {
 
                 if (ltrue_stat_while != 0)
                     code.emit(OpCode.GOto, ltrue_stat_while);
-                code.emitLabel(ltrue_stat_while);
+                code.emitLabel(ltrue_stat_while); //Label per identificare l'inizio del while
 
                 bexpr(lnext_stat_while, end_while);
                 match(')');

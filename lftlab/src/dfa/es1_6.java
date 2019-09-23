@@ -1,12 +1,9 @@
-package dfa;
-
-/**
+/*
  * @author: Alexandru Mocanu
  * Matricola 813322
  */
 
-
-// TODO corretto, studiare automa
+package dfa;
 
 public class es1_6 {
     public static boolean scan(String s){

@@ -1,6 +1,5 @@
 //test test
 /*prova prova*/
-/*
 x:=10;
 print(5*5+2/2); //26
 read(y);
@@ -14,7 +13,7 @@ case
 when (n>2) print(1)
 when (x>0) print(2)
 when (y>0) {print(y); print(3)}
-else print(5);*/
+else print(5);
 
 read(x_1);
 read(_y2);
