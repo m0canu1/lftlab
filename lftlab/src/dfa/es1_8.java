@@ -5,8 +5,8 @@
 
 package dfa;
 
-public class es1_8 {
-    public static boolean scan(String s) {
+class es1_8 {
+    private static boolean scan(String s) {
         int state = 0; // stato iniziale q0
         int i = 0;
         while (state >= 0 && i < s.length()) {

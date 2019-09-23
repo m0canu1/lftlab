@@ -5,7 +5,7 @@
 
 package dfa;
 
-public class es1_5 {
+class es1_5 {
 
     /* PARI */
     private static boolean even(char ch) {
@@ -27,7 +27,7 @@ public class es1_5 {
         return (ch >= 'L' && ch <= 'Z') || (ch >= 'l' && ch <= 'z');
     }
 
-    public static boolean scan(String s) {
+    private static boolean scan(String s) {
         int state = 0;
         int i = 0;
         while (state >= 0 && i < s.length()) {

@@ -8,7 +8,7 @@ package dfa;
 import static java.lang.Character.isDigit;
 import static java.lang.Character.isLetter;
 
-public class es1_2 {
+class es1_2 {
     private static boolean scan(String s) {
         int state = 0; //stato iniziale
         int i = 0;

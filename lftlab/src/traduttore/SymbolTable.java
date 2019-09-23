@@ -4,7 +4,7 @@ import java.util.*;
 
 class SymbolTable {
 
-    private Map<String, Integer> OffsetMap = new HashMap<String, Integer>();
+    private Map<String, Integer> OffsetMap = new HashMap<>();
 
     void insert(String s, int address) {
         if (!OffsetMap.containsValue(address))

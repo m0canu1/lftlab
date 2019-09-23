@@ -8,7 +8,7 @@ package dfa;
 
 import java.util.Scanner;
 
-public class es1_1 {
+class es1_1 {
     private static boolean scan(String s, int choice) {
         int state = 0;
         int i = 0;

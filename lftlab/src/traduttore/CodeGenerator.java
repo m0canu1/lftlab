@@ -5,7 +5,7 @@ import java.io.*;
 
 class CodeGenerator {
 
-    private LinkedList<Instruction> instructions = new LinkedList<Instruction>();
+    private LinkedList<Instruction> instructions = new LinkedList<>();
 
     private int label = 0;
 
