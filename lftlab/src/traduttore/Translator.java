@@ -76,7 +76,6 @@ public class Translator {
         switch (look.tag) {
             case Tag.ID:
                 if(look.tag == Tag.ID) {
-//                    int next_id = code.newLabel();
                     int id_addr = st.lookupAddress(((Word)look).lexeme);
                     if (id_addr == -1) { // controlla se l'ID è già assegnato a un indirizzo
                         id_addr = count; //assegna all'indirizzo puntato da count
@@ -86,21 +85,18 @@ public class Translator {
                     match(Tag.ASSIGN);
                     expr();
                     code.emit(OpCode.istore, id_addr); //istore nell'indirizzo di id_addr
-//                    code.emitLabel(next_id);
                 } else
                     error("Error in grammar (stat) after ID, found " + look);
                 break;
             case Tag.PRINT:
-//                int next_print = code.newLabel();
                 match(Tag.PRINT);
                 match('(');
                 expr();
                 code.emit(OpCode.invokestatic, 1); // 1 invoca la funzione print
-//                code.emitLabel(next_print);
                 match(')');
                 break;
             case Tag.READ:
-//                int next_read = code.newLabel();
+
                 match(Tag.READ); 
                 match('('); 
                 if (look.tag==Tag.ID) { 
@@ -113,7 +109,7 @@ public class Translator {
                     match(')');
                     code.emit(OpCode.invokestatic,0);
                     code.emit(OpCode.istore,read_id_addr);
-//                    code.emitLabel(next_read);
+
                 } else
                     error("Error in grammar (stat) after read( with " + look);
                 break;
@@ -323,7 +319,6 @@ public class Translator {
         default:
             error("Erroneous character in exprp. Found " + look);
             break;
-            // ... completare ... 
         } 
     }
 
@@ -408,11 +403,8 @@ public class Translator {
         Lexer lex = new Lexer();
         String path = "src/traduttore/test1.pas";
 //        String path = "src/traduttore/A.pas";
-        // String path = "B.pas";
-        // String path = "C.pas";
-        // String path = "testExprTranslator.pas";
-        // String path = "test1.pas";
-        // String path = "test2.pas";
+        // String path = "src/traduttore/B.pas";
+        // String path = "src/traduttore/C.pas";
         try {
             BufferedReader br = new BufferedReader(new FileReader(path));
             Translator translator = new Translator(lex, br);
