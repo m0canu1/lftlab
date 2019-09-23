@@ -34,7 +34,7 @@ public class Translator {
     }
 
     private void error(String s) {
-        throw new Error("near line " + lex.line + ": " + s);
+        throw new Error("near line " + Lexer.line + ": " + s);
     }
 
     /**
