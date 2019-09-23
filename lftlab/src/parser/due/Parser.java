@@ -222,7 +222,9 @@ public class Parser {
                  expr();
              } else
                  error("Erroneous character in bexpr. Invalid boolean expression");
-         } //TODO non ci va l'else?
+         }
+         else
+             error("Erroneous character in bexpr. Erroneous starting symbol");
      }
 
     /**

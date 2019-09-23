@@ -211,7 +211,7 @@ public class Translator {
             case Tag.ELSE:
                 break;
             default:
-                error("Erroneous character in whenlistp. Expected ) but found: " + look); //TODO è giusto l'expected??
+                error("Erroneous character in whenlistp. Expected ) but found: " + look);
                 break;
         }
     }
@@ -245,7 +245,7 @@ public class Translator {
      */
     private void bexpr(int ltrue, int lfalse) { //label true, label false
         if (look.tag == '(' || look.tag == Tag.NUM || look.tag == Tag.ID) {
-            expr(); //TODO non ci vanno parametri?
+            expr();
             /* Non funziona lo switch */
             if (look == Word.eq) {
                 match(Tag.RELOP);

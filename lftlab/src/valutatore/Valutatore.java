@@ -63,7 +63,7 @@ public class Valutatore {
         int term_val, exprp_val = 0;
         if (look.tag == '(' || look.tag == Tag.NUM) {
             term_val = term();
-            exprp_val = exprp(term_val); //TODO perché term_val come parametro?
+            exprp_val = exprp(term_val);
         } else
             error("Erroneous character in expr. Expected ( or NUM, but found" + look);
         return exprp_val;
@@ -94,7 +94,7 @@ public class Valutatore {
     }
 
     private int term() {
-        int fact_val, termp_val = 0; //TODO perché termp_val è inizializzato a 0?
+        int fact_val, termp_val = 0;
         if (look.tag == '(' || look.tag == Tag.NUM) {
             fact_val = fact();
             termp_val = termp(fact_val);

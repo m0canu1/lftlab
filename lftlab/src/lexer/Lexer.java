@@ -154,10 +154,8 @@ public class Lexer {
                     }
                     return new Word(Tag.ID, s);
                 }
-
             case (char)-1:
                 return new Token(Tag.EOF);
-//TODO case _ identificatore
             default:  //il caso dell'identificatore che può iniziare con solo con una lettera o con "_"
                 if (Character.isLetter(peek)) { // se il carattere è una lettera
                     String s = "";
