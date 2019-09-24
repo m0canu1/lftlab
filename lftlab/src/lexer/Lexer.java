@@ -44,9 +44,10 @@ public class Lexer {
                 readch(br); // leggi prossimo carattere
                 if (peek == '/') { // inizia un commento del tipo "//" che finisce con l'accapo
                     readch(br);
-                    while (peek != '\n') readch(br);
-                    readch(br);
-                    return lexical_scan(br);
+                    while (peek != '\n' && peek != -1) readch(br); //TODO manca caso con commento che finisce senza accapo
+                        readch(br);
+                        return lexical_scan(br);
+                    
                 } else if (peek == '*') { //inizia un commento del tipo "/*"
                     readch(br);
                     boolean flag = false; //flag che controlla che il commento venga chiuso

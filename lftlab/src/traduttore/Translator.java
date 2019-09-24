@@ -117,10 +117,9 @@ public class Translator {
                 break;
             case Tag.CASE:
                 match(Tag.CASE);
-                lnext = code.newLabel(); //TODO era nell'if, al posto sbagliato
+                lnext = code.newLabel();
                 whenlist(lnext);
                 if (look.tag == Tag.ELSE) {
-                    // lnext=code.newLabel(); //TODO qui errore
                     match(Tag.ELSE);
                     stat(lnext);
                     code.emitLabel(lnext); //S.next
@@ -231,7 +230,7 @@ public class Translator {
                     match(')');
                     code.emitLabel(itrue);
                     stat(next_when);
-                    code.emit(OpCode.GOto, lnext); //TODO QUI
+                    code.emit(OpCode.GOto, lnext);
                     code.emitLabel(next_when);
                 } else
                     error("Erroneous character in (whenitem) after (bexpr). Expected ) but found: " + look);
