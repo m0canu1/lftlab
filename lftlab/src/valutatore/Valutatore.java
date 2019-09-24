@@ -152,7 +152,7 @@ public class Valutatore {
 
     public static void main(String[] args) {
         Lexer lex = new Lexer();
-        String path = "/home/alex/Desktop/git/lftlab/lftlab/src/valutatore/valutatore.txt";
+        String path = "src/valutatore/valutatore.txt";
         try {
             BufferedReader br = new BufferedReader(new FileReader(path));
             Valutatore valutatore = new Valutatore(lex, br);

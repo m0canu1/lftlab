@@ -67,41 +67,6 @@ L9:
  ldc 5
  invokestatic Output/print(I)V
 L0:
- invokestatic Output/read()I
- istore 3
- invokestatic Output/read()I
- istore 4
- goto L10
-L10:
- iload 3
- iload 4
- if_icmpne L11
- goto L12
-L11:
- iload 3
- iload 4
- if_icmplt L13
- goto L14
-L13:
- iload 4
- iload 3
- isub 
- istore 4
- iload 4
- invokestatic Output/print(I)V
- goto L10
-L14:
- iload 3
- iload 4
- isub 
- istore 3
- iload 3
- invokestatic Output/print(I)V
-L10:
- goto L10
-L12:
- iload 3
- invokestatic Output/print(I)V
 L0:
  return
 .end method

@@ -161,7 +161,7 @@ public class Parser {
 
     public static void main(String[] args) {
         Lexer lex = new Lexer();
-        String path = "/home/alex/Desktop/git/lftlab/lftlab/src/parser/uno/parser1.txt";
+        String path = "src/parser/uno/parser1.txt";
         try {
             BufferedReader br = new BufferedReader(new FileReader(path));
             Parser parser = new Parser(lex, br);

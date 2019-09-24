@@ -1,0 +1,74 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Valutatore",
+            "request": "launch",
+            "mainClass": "valutatore.Valutatore",
+            "projectName": "lftlab_c07df6af"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Parser",
+            "request": "launch",
+            "mainClass": "parser.uno.Parser",
+            "projectName": "lftlab_c07df6af"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - LexerRunner",
+            "request": "launch",
+            "mainClass": "lexer.LexerRunner",
+            "projectName": "lftlab_c07df6af"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - es1_7",
+            "request": "launch",
+            "mainClass": "dfa.es1_7",
+            "projectName": "lftlab_c07df6af"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - es1_10",
+            "request": "launch",
+            "mainClass": "dfa.es1_10",
+            "projectName": "lftlab_c07df6af"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - es1_9",
+            "request": "launch",
+            "mainClass": "dfa.es1_9",
+            "projectName": "lftlab_c07df6af"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - es1_4",
+            "request": "launch",
+            "mainClass": "dfa.es1_4",
+            "projectName": "lftlab_c07df6af"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Parser",
+            "request": "launch",
+            "mainClass": "parser.due.Parser",
+            "projectName": "lftlab_c07df6af"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Translator",
+            "request": "launch",
+            "mainClass": "traduttore.Translator",
+            "projectName": "lftlab_c07df6af"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - es1_1",
+            "request": "launch",
+            "mainClass": "dfa.es1_1",
+            "projectName": "lftlab_c07df6af"
+        }
+    ]
+}

@@ -340,7 +340,7 @@ public class Parser {
 
     public static void main(String[] args) {
         Lexer lex = new Lexer();
-        String path = "/home/alex/Desktop/git/lftlab/lftlab/src/parser/due/parser2.txt";
+        String path = "src/parser/due/parser2.txt";
         try {
             BufferedReader br = new BufferedReader(new FileReader(path));
             parser.due.Parser parser = new Parser(lex, br);
