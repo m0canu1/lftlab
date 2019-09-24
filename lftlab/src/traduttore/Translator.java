@@ -117,8 +117,10 @@ public class Translator {
                 break;
             case Tag.CASE:
                 match(Tag.CASE);
+                lnext = code.newLabel(); //TODO era nell'if, al posto sbagliato
                 whenlist(lnext);
                 if (look.tag == Tag.ELSE) {
+                    // lnext=code.newLabel(); //TODO qui errore
                     match(Tag.ELSE);
                     stat(lnext);
                     code.emitLabel(lnext); //S.next
@@ -229,7 +231,7 @@ public class Translator {
                     match(')');
                     code.emitLabel(itrue);
                     stat(next_when);
-                    code.emit(OpCode.GOto, lnext);
+                    code.emit(OpCode.GOto, lnext); //TODO QUI
                     code.emitLabel(next_when);
                 } else
                     error("Erroneous character in (whenitem) after (bexpr). Expected ) but found: " + look);
@@ -403,9 +405,9 @@ public class Translator {
     
     public static void main(String[] args) {
         Lexer lex = new Lexer();
-        String path = "src/traduttore/test1.pas";
+        // String path = "src/traduttore/test1.pas";
 //        String path = "src/traduttore/A.pas";
-        // String path = "src/traduttore/B.pas";
+        String path = "src/traduttore/B.pas";
         // String path = "src/traduttore/C.pas";
         try {
             BufferedReader br = new BufferedReader(new FileReader(path));
